@@ -153,7 +153,7 @@ export default function CaseStudy() {
               &ldquo;{cs.quote.text}&rdquo;
             </p>
             <cite className="not-italic font-display font-bold uppercase text-xs tracking-widest text-ink/50">
-              — {cs.quote.attribution}
+              {cs.quote.attribution}
             </cite>
           </blockquote>
         </section>

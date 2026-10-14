@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export default function Nav() {
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between bg-ink/95 backdrop-blur px-6 md:px-10 py-4 border-b border-sage/30 text-sage">
-      <Link to="/" className="font-display font-black text-xl tracking-tightest">
+      <Link to="/" className="font-display font-black text-xl tracking-wide">
         VALENTINE
         <br />
         DE LEOTARD

@@ -146,7 +146,7 @@ export const caseStudies = [
     heroAspect: "aspect-[1800/1383]",
     quote: {
       text: "Merchandising execution is highlighted by strong performance of personalized and customizable gifts and kits, as well as innovative hard goods product, that resonated with customers during the important holiday quarter.",
-      attribution: "Luis Borgen, CFO, DAVIDsTEA — Q4 FY2015 earnings call, April 2016",
+      attribution: "Luis Borgen, CFO, DAVIDsTEA · Q4 FY2015 earnings call, April 2016",
     },
     sections: [
       {

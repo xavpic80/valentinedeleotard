@@ -21,7 +21,7 @@ export default function About() {
             <p>
               I hold a master's degree in visual communication and began my career in
               advertising at M&amp;C Saatchi. In 2010 I moved to Canada and spent the
-              next years shaping brands like DAVIDsTEA and, later, Goodfood &mdash;{" "}
+              next years shaping brands like DAVIDsTEA and, later, Goodfood,{" "}
               <strong className="font-bold text-ink">
                 building creative studios from the ground up and leading teams of 25+
                 creatives
@@ -42,7 +42,7 @@ export default function About() {
             href="mailto:valentine.picquerey@gmail.com"
             className="inline-block mt-10 font-display font-bold uppercase tracking-widest text-sm border-b-2 border-terracotta pb-1"
           >
-            Let's chat &mdash; valentine.picquerey@gmail.com
+            Let's chat · valentine.picquerey@gmail.com
           </a>
         </div>
         <img
