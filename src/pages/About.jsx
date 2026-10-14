@@ -1,3 +1,12 @@
+import HeroCarousel from "../components/HeroCarousel"
+
+const photos = [
+  "/about/val-01.jpg",
+  "/about/val-03.jpg",
+  "/about/val-04.jpg",
+  "/about/val-05.jpg",
+]
+
 export default function About() {
   return (
     <section className="px-6 md:px-10 py-20 max-w-5xl">
@@ -7,8 +16,11 @@ export default function About() {
       <h1 className="font-display font-extrabold text-4xl md:text-6xl tracking-tightest mb-10">
         Hi, I'm Valentine.
       </h1>
-      <div className="grid md:grid-cols-[1fr_minmax(0,420px)] gap-10 md:gap-14 items-center">
-        <div>
+      <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <div className="aspect-[4/5] rounded-sm overflow-hidden">
+          <HeroCarousel images={photos} alt="Valentine de Leotard" />
+        </div>
+        <div className="flex flex-col justify-center">
           <div className="space-y-6 text-ink/80 leading-relaxed text-lg">
             <p>
               I'm a Senior Creative Director based in Montreal, with{" "}
@@ -45,11 +57,6 @@ export default function About() {
             Let's chat · valentine.picquerey@gmail.com
           </a>
         </div>
-        <img
-          src="/about/valentine-portrait.jpg"
-          alt="Valentine de Leotard"
-          className="w-full h-auto rounded-sm"
-        />
       </div>
     </section>
   )
