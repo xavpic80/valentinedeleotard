@@ -192,8 +192,7 @@ export const caseStudies = [
             body: "Fan groups on Facebook grew to **hundreds of thousands of members**, swapping tins, predicting flavours, planning their 24 days before the calendar even launched. People built **a yearly ritual** around it, tins to trade and flavours to predict.",
           },
         ],
-        imageGrid: true,
-        imageCols: 3,
+        imageCarousel: true,
       },
       {
         headline: "From the homepage to the store shelf.",
@@ -205,6 +204,19 @@ export const caseStudies = [
           "/davidstea-new/in-situ-store-display.jpg",
         ],
         imageGrid: true,
+      },
+      {
+        bgColor: "#B7F5EC",
+        images: [
+          ...Array.from({ length: 25 }, (_, i) => `/davidstea-new/collection-story/slide-${String(i + 1).padStart(2, "0")}.jpg`),
+          {
+            bg: "#0F3D2E",
+            color: "#B7F5EC",
+            heading: "From a simple tea to a full world.",
+            body: "Every collection started with the tea itself, and from there came the real job: **building the full storytelling around it**. It always began with trend research, choosing the colour palette and illustration style that would carry the whole season, then packaging, gift sets and everyday alike, then impact walls, point-of-purchase displays and storefront windows, all the way down to **how the whole story actually lived on the shelf**.",
+          },
+        ],
+        imageCarousel: true,
       },
     ],
     resultsBg: "#B7F5EC",

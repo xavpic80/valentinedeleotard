@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 const BEAT_MS = 1500
 
-export default function HeroCarousel({ images, alt }) {
+export default function HeroCarousel({ images, alt, fit = "cover", bgClassName }) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -13,13 +13,15 @@ export default function HeroCarousel({ images, alt }) {
   }, [images.length])
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className={`relative w-full h-full overflow-hidden ${bgClassName || ""}`}>
       {images.map((src, i) => (
         <img
           key={src}
           src={src}
           alt={alt}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+          className={`absolute inset-0 w-full h-full ${
+            fit === "contain" ? "object-contain" : "object-cover"
+          } transition-opacity duration-500 ease-in-out ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
         />

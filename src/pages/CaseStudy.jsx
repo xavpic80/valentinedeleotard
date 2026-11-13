@@ -161,6 +161,7 @@ export default function CaseStudy() {
 
       {cs.sections.map((section, i) => {
         const reverse = i % 2 === 1
+        const sameBgAsPrev = i > 0 && section.bgColor && section.bgColor === cs.sections[i - 1].bgColor
         const video =
           (section.image && (
             <img src={section.image} alt={section.headline} className="w-full rounded-sm" />
@@ -284,7 +285,43 @@ export default function CaseStudy() {
             )}
 
             {section.images &&
-              (section.imageGrid ? (
+              (section.imageCarousel ? (
+                (() => {
+                  const cards = section.images.filter((img) => typeof img !== "string")
+                  const photos = section.images.filter((img) => typeof img === "string")
+                  return (
+                    <div
+                      className={`grid grid-cols-1 gap-4 items-stretch ${
+                        cards.length ? "md:grid-cols-[3fr_2fr]" : ""
+                      }`}
+                    >
+                      <div className="aspect-[4/3] rounded-sm overflow-hidden bg-white p-6">
+                        <HeroCarousel
+                          images={photos}
+                          alt={section.headline}
+                          fit="contain"
+                        />
+                      </div>
+                      {cards.map((img, j) => (
+                        <div
+                          key={j}
+                          className="rounded-sm p-8 flex flex-col justify-center"
+                          style={{ backgroundColor: img.bg, color: img.color }}
+                        >
+                          {img.heading && (
+                            <p className="font-display font-extrabold text-xl tracking-tightest mb-3">
+                              {img.heading}
+                            </p>
+                          )}
+                          <p className="leading-relaxed whitespace-pre-line">
+                            {renderWithBold(img.body, "font-bold")}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                })()
+              ) : section.imageGrid ? (
                 <div
                   className={`columns-1 gap-4 ${
                     section.imageCols === 3 ? "sm:columns-3" : "sm:columns-2"
@@ -334,7 +371,7 @@ export default function CaseStudy() {
         return (
           <section
             key={i}
-            className="px-6 md:px-10 py-16 border-t border-ink/10"
+            className={`px-6 md:px-10 py-16 ${sameBgAsPrev ? "pt-0" : "border-t border-ink/10"}`}
             style={section.bgColor ? { backgroundColor: section.bgColor } : undefined}
           >
             {section.textBelow ? (

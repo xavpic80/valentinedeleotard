@@ -22,7 +22,13 @@ export default function Home() {
             I am a{" "}
             <span className="italic font-semibold">Hands-on Creative Director</span>
             <br />
-            working in CPG, retail &amp; challenger brands.
+            working in CPG, retail &amp; challenger brands.{" "}
+            <Link
+              to="/about"
+              className="inline-block align-text-bottom -translate-y-2 font-display font-bold uppercase tracking-widest text-[3vw] md:text-base bg-ink text-sage rounded-sm px-4 py-2 md:px-6 md:py-3 hover:opacity-80 transition-opacity"
+            >
+              About me
+            </Link>
           </h1>
         </div>
         <div className="mt-8">
