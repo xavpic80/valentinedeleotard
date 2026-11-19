@@ -2,15 +2,15 @@ import { useEffect, useState } from "react"
 
 const BEAT_MS = 1500
 
-export default function HeroCarousel({ images, alt, fit = "cover", bgClassName }) {
+export default function HeroCarousel({ images, alt, fit = "cover", bgClassName, beatMs }) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
     const t = setInterval(() => {
       setIndex((i) => (i + 1) % images.length)
-    }, BEAT_MS)
+    }, beatMs || BEAT_MS)
     return () => clearInterval(t)
-  }, [images.length])
+  }, [images.length, beatMs])
 
   return (
     <div className={`relative w-full h-full overflow-hidden ${bgClassName || ""}`}>

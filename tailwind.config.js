@@ -23,8 +23,8 @@ export default {
         "pantone-332": "#B7F5EC", // neon mint
       },
       fontFamily: {
-        display: ["'Archivo'", "sans-serif"],
-        body: ["'Inter'", "sans-serif"],
+        display: ["'Manrope'", "sans-serif"],
+        body: ["'Manrope'", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.04em",

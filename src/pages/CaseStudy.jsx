@@ -24,72 +24,117 @@ export default function CaseStudy() {
 
   return (
     <div>
-      <div className="bg-pantone-332 text-ink px-6 md:px-10 py-3">
-        <p className="font-display font-bold uppercase tracking-[0.2em] text-xs md:text-sm text-center">
-          The Brief
-        </p>
-      </div>
-
-      <section className="grid md:grid-cols-2 gap-0">
-        <div className={`bg-sand ${cs.heroAspect || "aspect-[4/3]"} md:aspect-auto md:h-full`}>
-          {cs.heroCarousel ? (
-            <HeroCarousel images={cs.heroCarousel} alt={cs.title} />
-          ) : (
-            cs.heroImage && (
-              <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover" />
-            )
-          )}
+      <section className="bg-black text-cream px-6 md:px-10 pt-14 md:pt-20 pb-14 md:pb-20">
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          <span className="inline-block bg-sage text-ink font-display font-bold text-xs md:text-sm px-4 py-2 rounded-full">
+            {cs.brand}
+          </span>
+          <span className="inline-block bg-sage text-ink font-display font-bold text-xs md:text-sm px-4 py-2 rounded-full">
+            {cs.category}
+          </span>
+          <span className="font-display text-xs md:text-sm text-cream/40 ml-1">{cs.year}</span>
         </div>
-        <div
-          className="flex flex-col justify-center px-6 md:px-14 py-12 md:py-20"
-          style={cs.heroBg ? { backgroundColor: cs.heroBg, color: cs.heroTextColor } : undefined}
-        >
-          <p
-            className={`font-display font-bold uppercase text-xs tracking-widest mb-2 ${
-              cs.heroBg ? "opacity-70" : "text-ink"
-            }`}
-          >
-            {cs.brand} &middot; {cs.year}
+
+        <h1 className="font-display font-extrabold text-5xl md:text-7xl lg:text-8xl tracking-tightest leading-[0.95] mb-8 max-w-5xl">
+          {cs.title}
+        </h1>
+
+        {cs.role.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {cs.role.map((r) => (
+              <span
+                key={r}
+                className="inline-block border border-cream/25 text-cream/80 font-display text-xs md:text-sm px-4 py-2 rounded-full"
+              >
+                {r}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {cs.featured && (
+          <p className="text-xs uppercase tracking-widest font-display font-bold text-sage mb-14 md:mb-16">
+            {cs.featured}
           </p>
-          <h1 className="font-display font-extrabold text-4xl md:text-5xl tracking-tightest leading-[1.02] mb-6">
-            {cs.title}
-          </h1>
-          <p
-            className={`leading-relaxed mb-6 whitespace-pre-line ${cs.heroBg ? "opacity-90" : "text-ink/80"}`}
-          >
-            {renderWithBold(cs.brief, cs.heroBg ? "font-bold" : "font-bold text-ink")}
-          </p>
-          {cs.role.length > 0 && (
-            <p
-              className={`font-display font-bold uppercase text-xs tracking-widest mb-2 ${
-                cs.heroBg ? "opacity-60" : "text-ink/50"
-              }`}
-            >
-              {cs.role.join(", ")}
+        )}
+
+        <div className="grid md:grid-cols-3 gap-10 md:gap-12 mt-10">
+          <div>
+            <p className="font-display font-bold uppercase tracking-[0.2em] text-xs text-sage mb-3">
+              The Brief
             </p>
+            <p className="leading-relaxed text-cream/75 whitespace-pre-line">
+              {renderWithBold(cs.brief, "font-bold text-cream")}
+            </p>
+          </div>
+          {cs.idea && (
+            <div>
+              <p className="font-display font-bold uppercase tracking-[0.2em] text-xs text-sage mb-3">
+                The Idea
+              </p>
+              <p className="leading-relaxed text-cream/75 whitespace-pre-line">
+                {renderWithBold(cs.idea, "font-bold text-cream")}
+              </p>
+            </div>
           )}
-          {cs.featured && (
-            <p
-              className={`text-xs uppercase tracking-widest font-display font-bold ${
-                cs.heroBg ? "opacity-50" : "text-ink/40"
-              }`}
-            >
-              {cs.featured}
-            </p>
+          {cs.whatIDid && (
+            <div>
+              <p className="font-display font-bold uppercase tracking-[0.2em] text-xs text-sage mb-3">
+                What I Did
+              </p>
+              <p className="leading-relaxed text-cream/75 whitespace-pre-line">
+                {renderWithBold(cs.whatIDid, "font-bold text-cream")}
+              </p>
+            </div>
           )}
         </div>
       </section>
 
+      {cs.heroCarousel && (
+        <div className={cs.heroFullBleed ? "w-full" : "max-w-5xl mx-auto px-6 md:px-10 py-10 md:py-16"}>
+          <div
+            className={`${cs.heroCarouselAspect || "aspect-[4/3]"} overflow-hidden bg-sand ${
+              cs.heroFullBleed ? "" : "rounded-sm"
+            }`}
+          >
+            <HeroCarousel
+              images={cs.heroCarousel}
+              alt={cs.title}
+              fit="contain"
+              bgClassName="bg-sand"
+              beatMs={cs.heroCarouselBeatMs}
+            />
+          </div>
+        </div>
+      )}
+
+      {cs.heroImage && (
+        <div className={cs.heroFullBleed ? "w-full" : "max-w-5xl mx-auto px-6 md:px-10 py-10 md:py-16"}>
+          <img
+            src={cs.heroImage}
+            alt={cs.title}
+            className={`w-full h-auto ${cs.heroFullBleed ? "" : "rounded-sm"} ${cs.heroObjectPosition || ""} ${cs.heroScale || ""}`}
+          />
+        </div>
+      )}
+
       {cs.results && (
         <section
-          className={`px-6 md:px-10 py-16 ${cs.resultsBg ? "" : "bg-terracotta text-ink"}`}
+          className={`px-6 md:px-10 py-16 ${cs.resultsBg ? "" : "bg-sage text-ink"}`}
           style={cs.resultsBg ? { backgroundColor: cs.resultsBg, color: cs.resultsTextColor } : undefined}
         >
           <p className="font-display font-bold uppercase tracking-[0.2em] text-xs md:text-sm mb-6">
             {cs.results.label || "The Results"}
           </p>
           {cs.results.items ? (
-            <div className={`grid gap-10 items-start ${cs.results.team ? "md:grid-cols-[1.3fr_1fr]" : ""}`}>
+            <div
+              className={`grid gap-10 items-start ${
+                cs.results.image ? "md:grid-cols-[1fr_1.3fr]" : cs.results.team ? "md:grid-cols-[1.3fr_1fr]" : ""
+              }`}
+            >
+              {cs.results.image && (
+                <img src={cs.results.image} alt={cs.results.label || ""} className="w-full rounded-sm" />
+              )}
               <div className="flex flex-col gap-4 md:gap-6">
                 {cs.results.items.map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
@@ -99,15 +144,15 @@ export default function CaseStudy() {
                     >
                       ✦
                     </span>
-                    <span className="font-display font-extrabold text-2xl md:text-5xl tracking-tightest leading-tight">
-                      {item}
+                    <span className="font-display font-medium text-lg md:text-2xl tracking-tightest leading-snug">
+                      {renderWithBold(item, "font-extrabold")}
                     </span>
                   </div>
                 ))}
               </div>
               {cs.results.team && (
                 <div
-                  className={`rounded-sm p-8 ${cs.resultsTeamBg ? "" : "bg-ink text-sage"}`}
+                  className={`rounded-sm p-8 ${cs.resultsTeamBg ? "" : "bg-black text-cream"}`}
                   style={cs.resultsTeamBg ? { backgroundColor: cs.resultsTeamBg, color: cs.resultsTeamTextColor } : undefined}
                 >
                   <p className="font-display font-bold uppercase tracking-[0.2em] text-xs mb-6">
@@ -147,7 +192,10 @@ export default function CaseStudy() {
       )}
 
       {cs.quote && (
-        <section className="px-6 md:px-10 py-16 border-t border-ink/10 bg-sand">
+        <section
+          className={`px-6 md:px-10 py-16 ${cs.quoteBg ? "" : "border-t border-ink/10 bg-sand"}`}
+          style={cs.quoteBg ? { backgroundColor: cs.quoteBg } : undefined}
+        >
           <blockquote className="max-w-3xl mx-auto text-center">
             <p className="font-display font-bold text-2xl md:text-4xl italic tracking-tightest leading-snug mb-6">
               &ldquo;{cs.quote.text}&rdquo;
@@ -159,13 +207,23 @@ export default function CaseStudy() {
         </section>
       )}
 
-      {cs.sections.map((section, i) => {
+      {(() => {
+        let sectionNum = 0
+        return cs.sections.map((section, i) => {
+        if (section.tag) sectionNum += 1
         const reverse = i % 2 === 1
         const sameBgAsPrev = i > 0 && section.bgColor && section.bgColor === cs.sections[i - 1].bgColor
         const video =
-          (section.image && (
-            <img src={section.image} alt={section.headline} className="w-full rounded-sm" />
-          )) ||
+          (section.image &&
+            (Array.isArray(section.image) ? (
+              <div className="grid grid-cols-2 gap-4">
+                {section.image.map((src, j) => (
+                  <img key={j} src={src} alt={section.headline} className="w-full rounded-sm" />
+                ))}
+              </div>
+            ) : (
+              <img src={section.image} alt={section.headline} className="w-full rounded-sm" />
+            ))) ||
           (section.videoFile && (
             <div className="aspect-video w-full rounded-sm overflow-hidden bg-ink">
               <video
@@ -211,19 +269,45 @@ export default function CaseStudy() {
               </span>
             </a>
           ))
-        const copy = section.headline && (
+        const copy = (section.headline || section.quote) && (
           <div
             className={section.copyBg ? "h-full flex flex-col justify-center p-8 rounded-sm" : undefined}
             style={section.copyBg ? { backgroundColor: section.copyBg, color: section.copyTextColor } : undefined}
           >
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl tracking-tightest mb-6">
-              {section.headline}
-            </h2>
-            <p
-              className={`leading-relaxed whitespace-pre-line ${section.copyBg ? "opacity-90" : "text-ink/80"}`}
-            >
-              {renderWithBold(section.body, section.copyBg ? "font-bold" : "font-bold text-ink")}
-            </p>
+            {section.tag && (
+              <p
+                className={`font-display font-bold uppercase tracking-[0.2em] text-xs mb-3 ${
+                  section.copyBg ? "opacity-50" : "text-ink/40"
+                }`}
+              >
+                {String(sectionNum).padStart(2, "0")} {section.tag}
+              </p>
+            )}
+            {section.headline && (
+              <h2 className="font-display font-extrabold text-3xl md:text-4xl tracking-tightest mb-6">
+                {section.headline}
+              </h2>
+            )}
+            {section.quote ? (
+              <>
+                <p className="font-display font-bold text-2xl md:text-4xl italic tracking-tightest leading-snug mb-4">
+                  &ldquo;{section.quote.text}&rdquo;
+                </p>
+                <cite
+                  className={`not-italic font-display font-bold uppercase text-xs tracking-widest ${
+                    section.copyBg ? "opacity-60" : "text-ink/50"
+                  }`}
+                >
+                  {section.quote.attribution}
+                </cite>
+              </>
+            ) : (
+              <p
+                className={`leading-relaxed whitespace-pre-line ${section.copyBg ? "opacity-90" : "text-ink/80"}`}
+              >
+                {renderWithBold(section.body, section.copyBg ? "font-bold" : "font-bold text-ink")}
+              </p>
+            )}
           </div>
         )
 
@@ -259,7 +343,15 @@ export default function CaseStudy() {
         const mediaBlock = (section.imageColumns || section.images) && (
           <>
             {section.imageColumns && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+              <div
+                className={`grid grid-cols-1 gap-4 items-start ${
+                  section.imageColumns.length === 3
+                    ? "sm:grid-cols-[1fr_1fr_2fr]"
+                    : section.imageColumns.length > 1
+                    ? "sm:grid-cols-2"
+                    : ""
+                }`}
+              >
                 {section.imageColumns.map((col, ci) => (
                   <div key={ci} className="flex flex-col gap-4">
                     {col.map((item, j) =>
@@ -335,6 +427,13 @@ export default function CaseStudy() {
                         alt={`${section.headline} visual ${j + 1}`}
                         className="w-full rounded-sm mb-4 break-inside-avoid"
                       />
+                    ) : img.images ? (
+                      <div
+                        key={j}
+                        className={`rounded-sm mb-4 break-inside-avoid overflow-hidden ${img.aspect || "aspect-[4/3]"}`}
+                      >
+                        <HeroCarousel images={img.images} alt={img.alt || section.headline} />
+                      </div>
                     ) : (
                       <div
                         key={j}
@@ -371,7 +470,7 @@ export default function CaseStudy() {
         return (
           <section
             key={i}
-            className={`px-6 md:px-10 py-16 ${sameBgAsPrev ? "pt-0" : "border-t border-ink/10"}`}
+            className={`px-6 md:px-10 py-16 ${sameBgAsPrev || section.noBorder ? "pt-0" : "border-t border-ink/10"}`}
             style={section.bgColor ? { backgroundColor: section.bgColor } : undefined}
           >
             {section.textBelow ? (
@@ -387,7 +486,8 @@ export default function CaseStudy() {
             )}
           </section>
         )
-      })}
+        })
+      })()}
 
       {cs.behindTheBox && (
         <section className="px-6 md:px-10 py-16 border-t border-ink/10">
@@ -430,25 +530,19 @@ export default function CaseStudy() {
                   <Link
                     key={`${r.slug}-${i}`}
                     to={`/work/${r.slug}`}
-                    className="group block shrink-0 w-[220px] sm:w-[260px] overflow-hidden rounded-sm"
-                    style={{ backgroundColor: r.tileColor, color: r.tileTextColor }}
+                    className="group relative block shrink-0 w-[220px] sm:w-[260px] aspect-[4/3] overflow-hidden rounded-sm bg-ink/5"
                   >
-                    <div className="aspect-[4/3] overflow-hidden">
-                      {preview && (
-                        <img
-                          src={preview}
-                          alt={r.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <p className="font-display font-bold uppercase text-[10px] tracking-widest opacity-70 mb-1">
+                    {preview && (
+                      <img
+                        src={preview}
+                        alt={r.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
+                    <div className="absolute left-3 bottom-3">
+                      <span className="inline-block bg-black/85 text-cream font-display font-bold uppercase text-[10px] tracking-widest px-2.5 py-1 rounded-full">
                         {r.brand}
-                      </p>
-                      <h3 className="font-display font-extrabold text-base tracking-tightest leading-snug">
-                        {r.title}
-                      </h3>
+                      </span>
                     </div>
                   </Link>
                 )
