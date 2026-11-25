@@ -287,3 +287,11 @@
   position: fixed; top: 1.4rem; right: var(--pad);
   font-size: 1.4rem; color: var(--ink); cursor: pointer; opacity: 0;
 }
+
+/* Galerie avec texte à gauche et photos entières */
+.cs-gallery--natural .cs-gallery__track { align-items: center; }
+.cs-gallery__intro { width: clamp(280px, 30vw, 460px); flex-shrink: 0; padding-right: 3vw; }
+.cs-gallery__intro .section-label { margin-bottom: 1.5rem; }
+.cs-gallery__intro .cs-headline { margin-bottom: 1.5rem; }
+.cs-gallery--natural .cs-gallery__card { width: auto; height: clamp(300px, 60vh, 620px); aspect-ratio: auto; }
+.cs-gallery--natural .cs-gallery__card img { width: auto; height: 100%; object-fit: contain; }

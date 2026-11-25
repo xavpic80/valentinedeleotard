@@ -14,8 +14,8 @@ export const caseStudies = [
     whatIDid:
       "As Senior Creative Director, I guided the agency and **rolled the new identity out across every medium**: campaigns, digital, the delivery fleet, packaging, even the tape.",
     role: ["Creative Direction", "Brand Roll-Out", "Campaign Direction", "Art Direction", "Team Leadership"],
-    heroImage: "/goodfood-rebranding/press-chatelaine.jpg",
-    heroObjectPosition: "object-left-top",
+    heroImage: "/kaleido2/00.jpg",
+    heroAspect: "aspect-[1600/685]", // ratio réel de la mosaïque : aucune case n'est coupée
     sections: [
       {
         tag: "The campaigns",
@@ -27,9 +27,58 @@ export const caseStudies = [
         ],
       },
       {
+        tag: "The fleet",
+        headline: "Nothing better than a van in the brand's colours.",
+        body: "Nothing says ultra-fast delivery quite like a van wrapped head to toe in the new identity.",
+        image: "/goodfood-rebranding/hero-van.jpg",
+      },
+      {
+        tag: "The packaging",
+        headline: "Limited budget, no additional colours, no problem.",
+        body: "Boxes and bags were printed in only the brand's two main colours, for cost and the environment. We used the tape instead, to add colour and talk seasonality.",
+        // Galerie horizontale, texte à gauche, photos entières (hauteur commune, largeur naturelle)
+        gallery: true,
+        galleryText: true,
+        images: [
+          "/goodfood-rebranding/bag-goodtimes.jpg",
+          "/goodfood-rebranding/tape-birds.jpg",
+          "/goodfood-rebranding/tape-bbq.jpg",
+          "/goodfood-rebranding/easyprep-ingredients.jpg",
+        ],
+      },
+      {
+        tag: "The swag",
+        headline: "Goodfood has never been so cool.",
+        body: "From warehouse uniforms to notebooks, everything got redesigned for the new brand, down to promotional gifts like this tote bag.",
+        gallery: true,
+        galleryText: true,
+        images: [
+          "/goodfood-rebranding/swag-tshirt-banana.jpg",
+          "/goodfood-rebranding/swag-notebook.jpg",
+          "/goodfood-rebranding/swag-tote.jpg",
+          "/goodfood-rebranding/swag-tshirt-carrot.jpg",
+          "/goodfood-rebranding/swag-cap.jpg",
+        ],
+      },
+      {
+        tag: "In the wild",
+        headline: "The brand showed up everywhere, even on the page.",
+        body: "A matching cookbook brought the identity to the kitchen table, and the rebrand landed in the pages of Chatelaine too.",
+        gallery: true,
+        galleryText: true,
+        images: [
+          "/goodfood-rebranding/cookbook-cover.jpg",
+          "/goodfood-rebranding/cookbook-spread.jpg",
+          "/goodfood-rebranding/6.webp",
+          "/goodfood-rebranding/studio-neon.jpg",
+        ],
+      },
+      {
         tag: "The digital",
         headline: "Everywhere you scroll.",
         body: "With the marketing studio team, we produced digital assets across every channel, from Pinterest to TikTok to CRM.",
+        gallery: true,
+        galleryText: true,
         images: [
           "/goodfood-rebranding/campaign-bikeride.jpg",
           "/goodfood-rebranding/campaign-bigplates.jpg",
@@ -41,41 +90,6 @@ export const caseStudies = [
           },
           "/goodfood-rebranding/digital-email.jpg",
         ],
-        imageGrid: true,
-        imageCols: 3,
-        textBelow: true,
-      },
-      {
-        tag: "The fleet",
-        headline: "Nothing better than a van in the brand's colours.",
-        body: "Nothing says ultra-fast delivery quite like a van wrapped head to toe in the new identity.",
-        image: "/goodfood-rebranding/hero-van.jpg",
-      },
-      {
-        tag: "The packaging",
-        headline: "No budget, no colours, no problem.",
-        body: "Boxes and bags were printed in only the brand's two main colours, for cost and the environment. We used the tape instead, to add colour and talk seasonality.",
-        imageColumns: [
-          ["/goodfood-rebranding/bag-goodtimes.jpg"],
-          ["/goodfood-rebranding/tape-birds.jpg", "/goodfood-rebranding/tape-bbq.jpg", "/goodfood-rebranding/easyprep-ingredients.jpg"],
-        ],
-      },
-      {
-        tag: "The swag",
-        headline: "Goodfood has never been so cool.",
-        body: "From warehouse uniforms to notebooks, everything got redesigned for the new brand, down to promotional gifts like this tote bag.",
-        imageColumns: [
-          ["/goodfood-rebranding/swag-tshirt-banana.jpg", "/goodfood-rebranding/swag-tshirt-carrot.jpg"],
-          ["/goodfood-rebranding/swag-notebook.jpg", "/goodfood-rebranding/swag-cap.jpg"],
-          ["/goodfood-rebranding/swag-tote.jpg"],
-        ],
-      },
-      {
-        tag: "In the wild",
-        headline: "The brand showed up everywhere, even on the page.",
-        body: "A matching cookbook brought the identity to the kitchen table, and the rebrand landed in the pages of Chatelaine too.",
-        images: ["/goodfood-rebranding/cookbook-cover.jpg", "/goodfood-rebranding/cookbook-spread.jpg", "/goodfood-rebranding/press-chatelaine.jpg", "/goodfood-rebranding/studio-neon.jpg"],
-        imageGrid: true,
       },
     ],
     results: null,

@@ -55,14 +55,27 @@ function sectionMedia(s) {
   }
   if (s.images && s.gallery) {
     // Galerie horizontale épinglée (même mécanique que Selected work) ; chaque carte s'ouvre en grand au clic
-    html += `<div class="cs-gallery"><div class="cs-gallery__track">${s.images
+    // galleryText : le texte ouvre la bande à gauche, et les photos gardent leur format (pas de rognage)
+    const natural = !!s.galleryText;
+    const intro = natural
+      ? `<div class="cs-gallery__intro">
+          ${s.tag ? `<p class="section-label">${s.tag}</p>` : ""}
+          ${s.headline ? `<h2 class="cs-headline">${s.headline}</h2>` : ""}
+          ${s.body ? `<div class="cs-body">${rich(s.body)}</div>` : ""}
+        </div>`
+      : "";
+    const loading = natural ? "eager" : "lazy"; // largeur naturelle : il faut l'image pour mesurer la bande
+    html += `<div class="cs-gallery${natural ? " cs-gallery--natural" : ""}"><div class="cs-gallery__track">${intro}${s.images
       .map((m) => {
         const list = typeof m === "string" ? [m] : m.images;
         const alt = (typeof m === "object" && m.alt) || cs.brand;
         const inner = list.length > 1
-          ? `<div class="media--slideshow" data-slideshow>${list.map((src) => `<img src="${src}" alt="${alt}" loading="lazy" />`).join("")}</div>`
-          : `<img src="${list[0]}" alt="${alt}" loading="lazy" />`;
-        return `<button type="button" class="cs-gallery__card" data-zoom data-cursor="Zoom">${inner}</button>`;
+          ? `<div class="media--slideshow" data-slideshow>${list.map((src) => `<img src="${src}" alt="${alt}" loading="${loading}" />`).join("")}</div>`
+          : `<img src="${list[0]}" alt="${alt}" loading="${loading}" />`;
+        // Diaporama dans une galerie à photos entières : il faut lui donner un format (aspect des données)
+        const ratio = typeof m === "object" && m.aspect?.match(/\[(\d+)\/(\d+)\]/);
+        const style = ratio ? ` style="aspect-ratio:${ratio[1]}/${ratio[2]}"` : "";
+        return `<button type="button" class="cs-gallery__card" data-zoom data-cursor="Zoom"${style}>${inner}</button>`;
       })
       .join("")}</div></div>`;
   } else if (s.images) {
@@ -91,7 +104,7 @@ function sectionText(s) {
 }
 
 function renderSection(s, i) {
-  const text = sectionText(s);
+  const text = s.galleryText ? "" : sectionText(s); // galleryText : le texte est dans la bande
   const media = sectionMedia(s);
   return `<section class="cs-section${s.gallery ? " cs-section--gallery" : ""}" data-index="${i}">
     ${s.textBelow ? media + text : text + media}
@@ -243,6 +256,20 @@ function strips() {
   });
 }
 
+// Pendant le scroll, aucune carte ne grandit, et celle qui était agrandie reprend sa taille
+let scrolling = false;
+let scrollTimer = null;
+function shrink(card) {
+  if (!card.classList.contains("is-hover")) return;
+  gsap.to(card, { scale: 1, duration: 0.5, ease: EASE_OUT, overwrite: "auto", onComplete: () => card.classList.remove("is-hover") });
+}
+window.addEventListener("scroll", () => {
+  scrolling = true;
+  document.querySelectorAll(".cs-gallery__card.is-hover").forEach(shrink);
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => (scrolling = false), 200);
+}, { passive: true });
+
 // Galeries horizontales : la section reste fixe et les cartes défilent de droite à gauche
 function galleries() {
   document.querySelectorAll(".cs-gallery").forEach((gallery) => {
@@ -265,15 +292,15 @@ function galleries() {
         rotate: 4, yPercent: 15, opacity: 0.3, ease: "none",
         scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 100%", end: "left 60%", scrub: true },
       });
-      // Survol : toute la carte grandit de 30 % et passe devant ses voisines
+      // Survol : toute la carte grandit de 30 % et passe devant ses voisines,
+      // seulement quand la souris bouge vraiment (jamais pendant le scroll)
       if (!isTouch) {
-        card.addEventListener("mouseenter", () => {
+        card.addEventListener("mousemove", () => {
+          if (scrolling || card.classList.contains("is-hover")) return;
           card.classList.add("is-hover");
           gsap.to(card, { scale: 1.3, duration: 0.6, ease: EASE_OUT, overwrite: "auto" });
         });
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, { scale: 1, duration: 0.6, ease: EASE_OUT, overwrite: "auto", onComplete: () => card.classList.remove("is-hover") });
-        });
+        card.addEventListener("mouseleave", () => shrink(card));
       }
     });
   });
