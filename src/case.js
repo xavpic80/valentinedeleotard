@@ -144,6 +144,10 @@ function renderHero() {
     return `<div class="cs-hero__media ${cs.heroFullBleed ? "is-bleed" : ""} ${ratio ? "is-fixed" : ""} media--slideshow" data-slideshow${style}>
       ${cs.heroCarousel.map((src) => `<img src="${src}" alt="${cs.brand}" />`).join("")}</div>`;
   }
+  // Vidéo en haut de page (heroVideo), au format 16:9, sans parallaxe
+  if (cs.heroVideo) {
+    return `<div class="cs-hero__media is-fixed" style="aspect-ratio:16/9"><video src="${cs.heroVideo}" poster="${cs.heroImage || ""}" autoplay muted loop playsinline></video></div>`;
+  }
   const src = cs.heroImage || cs.tileImage;
   const pos = cs.heroObjectPosition === "object-left-top" ? ' style="object-position:left top"' : "";
   // Format imposé (heroAspect, ex. "aspect-[3000/750]") : image entière, sans rognage ni parallaxe

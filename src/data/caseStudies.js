@@ -1,5 +1,175 @@
 export const caseStudies = [
   {
+    slug: "private-label-packaging",
+    brand: "Goodfood",
+    title: "Building the Private Label from zero",
+    category: "Packaging",
+    year: "2020–Present",
+    tileColor: "#D7F24C",
+    tileTextColor: "#0F3D2E",
+    tileImage: "/private-label/hero-chocolate-award.jpg",
+    tileObjectPosition: "object-top",
+    brief:
+      "In 2020, Goodfood launched its private label line. I joined to define the packaging territory and build the studio from the ground up.",
+    idea: "**Customers should never feel bored buying only Goodfood:** each product tells its own story, Trader Joe's-charming, inside one cohesive brand system.",
+    whatIDid:
+      "**We've designed nearly 4,000 SKUs, I personally designed over 900,** leading a team of 10 designers at a pace of 40 packages a week, concept to print in 48 hours.",
+    role: ["Creative Direction", "Packaging Design", "Studio Build-Out", "Art Direction", "Team Leadership"],
+    heroImage: "/private-label/hero-packaging-band.jpg",
+    heroAspect: "aspect-[3000/750]", // ratio réel de l'image : rien n'est rogné
+    sections: [
+      {
+        tag: "The system",
+        headline: "One system, every aisle.",
+        body: "Sauces, spreads, snacks, drinks and dessert, nearly 4,000 SKUs that had to feel like one family. **Playful enough to stand alone, disciplined enough to read as Goodfood side by side.**",
+        // Galerie horizontale, texte à gauche, photos entières (images optimisées dans public/private-label/gallery)
+        gallery: true,
+        galleryText: true,
+        beforeHighlights: true, // section placée avant la bande des highlights
+        images: [
+          "/private-label/gallery/gum.jpg",
+          "/private-label/gallery/yogurt-lemon.jpg",
+          "/private-label/gallery/frozen-vanilla.jpg",
+          "/private-label/gallery/frozen-fudge.jpg",
+          "/private-label/gallery/cake-1.jpg",
+          "/private-label/gallery/cake-2.jpg",
+          "/private-label/gallery/matcha-latte.jpg",
+          "/private-label/gallery/spring-water.jpg",
+          "/private-label/gallery/sparkling-water.jpg",
+          "/private-label/gallery/tonic-water.jpg",
+          "/private-label/gallery/coconut-water.jpg",
+          "/private-label/gallery/coffee.jpg",
+          "/private-label/gallery/coffee-2.jpg",
+          "/private-label/gallery/salt.jpg",
+          "/private-label/gallery/salt-coarse.jpg",
+          "/private-label/gallery/salt-sea.jpg",
+          "/private-label/gallery/salt-table.jpg",
+          "/private-label/gallery/olive-oil.jpg",
+          "/private-label/gallery/marshmallows.jpg",
+        ],
+      },
+      {
+        // Encadré : texte à gauche, kaléidoscope des fichiers techniques à droite (1 image par seconde)
+        box: true,
+        boxBeat: 1,
+        tag: "Behind the shelf",
+        headline: "Beautiful is only half the job.",
+        body: "A great concept means nothing if it can't be printed. Every one of those packages also had to be **press-ready down to the dieline** for our printers, and **fully compliant with Canadian food labelling regulations**, reviewed hand in hand with Regulatory Affairs, in English and in French.\n\nAlong the way, I became an expert in **Nutrition Facts tables**. Against my will.",
+        images: [
+          "/private-label/technical/arborio-rice.jpg",
+          "/private-label/technical/green-lentils.jpg",
+          "/private-label/technical/jasmine-rice.jpg",
+          "/private-label/technical/dried-black-beans.jpg",
+          "/private-label/technical/multicolour-quinoa-review.jpg",
+          "/private-label/technical/pearl-couscous.jpg",
+          "/private-label/technical/basmati-rice.jpg",
+          "/private-label/technical/red-lentils.jpg",
+          "/private-label/technical/bulgur-wheat.jpg",
+          "/private-label/technical/dry-chickpea.jpg",
+          "/private-label/technical/millet.jpg",
+          "/private-label/technical/dried-navy-beans.jpg",
+          "/private-label/technical/parboiled-white-rice.jpg",
+          "/private-label/technical/green-split-peas.jpg",
+          "/private-label/technical/cornmeal.jpg",
+          "/private-label/technical/pearl-barley.jpg",
+          "/private-label/technical/dried-red-kidney-beans.jpg",
+          "/private-label/technical/couscous.jpg",
+          "/private-label/technical/white-quinoa.jpg",
+        ],
+      },
+      {
+        // GIF des chips, après l'encadré des fichiers techniques
+        image: "/private-label/gallery/chips-flavours.gif", // version ralentie (0,6 s par saveur) et allégée de 08.gif
+      },
+    ],
+    results: {
+      label: "The Recognition",
+      items: [
+        "Nearly 4,000 SKUs designed",
+        "900+ personally designed",
+        "48-hour concept-to-print pipeline",
+        "Global & Canadian design awards",
+      ],
+      team: [
+        { role: "Lead Designers", names: "Lucille Gamard, Charline Baubeau, Anna Maria Cipolla and so many more" },
+        { role: "Art Director", names: "Claudio Cutro" },
+        { role: "Photographer", names: "Ilich Leon" },
+        { role: "Food Stylist", names: "Cristina Camacho" },
+      ],
+    },
+    resultsBg: "#000000",
+    resultsTextColor: "#FFF8EC",
+    resultsTeamBg: "#B7F5EC",
+    resultsTeamTextColor: "#0F3D2E",
+    credits: "Creative Direction & Packaging Design: Valentine de Leotard, Goodfood Private Label Studio",
+  },
+  {
+    slug: "richard",
+    brand: "Richard for Goodfood",
+    title: "How to build a distinctive asset, from TV to the inbox",
+    category: "Distinctive Brand Asset · TV Campaign",
+    year: "2023–Present",
+    tileColor: "#B7F5EC",
+    tileTextColor: "#0F3D2E",
+    tileVideo: "/richard/video.mp4",
+    tileImage: "/richard/hero.jpg",
+    brief:
+      "Almost any meal-kit ad could be the competition's: same claims, same stock bowls, same thirty forgettable seconds.",
+    idea: "Unless you find a character that dissociates you from the category entirely. That's Richard, **a local raccoon furious at Goodfood** because our meal kits are portioned so precisely that nothing's left for him to scavenge.",
+    whatIDid:
+      "Not there to look polished, there to provoke and be unmistakable: **more than 80% of people surveyed associate him with Goodfood on sight.**",
+    role: ["Brand Strategy", "Distinctive Asset Development", "TV Campaign", "Creative Direction (Client-side)", "Agency Partnership"],
+    featured: "80%+ unprompted brand association · live across email, site, social, YouTube & TV",
+    heroVideo: "/richard/video.mp4", // la vidéo en haut de page
+    heroImage: "/richard/hero.jpg", // affiche de la vidéo pendant son chargement
+    sections: [
+      {
+        images: ["/richard/doorstep.jpg", "/richard/garbage-can.jpg"],
+        imageGrid: true,
+      },
+      {
+        tag: "The rollout",
+        headline: "Everywhere, on purpose.",
+        body: "**A distinctive asset only works if it's everywhere**: email, site, social, YouTube, TV. He shows up for Boxing Day, Valentine's, Canada Day, game day, whatever the calendar needs, built with John St., me on both sides of the table.",
+        images: [
+          "/richard/camp-goodfood-kid.jpg",
+        ],
+        imageGrid: true,
+      },
+      {
+        tag: "The puppet",
+        headline: "Loved enough to adopt.",
+        body: "Kids loved Richard so much, Goodfood turned him into a limited-edition puppet. **$5 from every puppet sold went to Second Harvest**, bringing the joke full circle: the raccoon mad about zero waste, helping reduce it.",
+        images: ["/richard/puppet.jpg"],
+        textBelow: true,
+      },
+      {
+        // La photo statique de Richard, tout en bas de page
+        image: "/richard/hero.jpg",
+      },
+    ],
+    results: {
+      label: "The Run",
+      items: [
+        "80%+ unprompted brand association",
+        "Live everywhere: email, site, social, YouTube & TV",
+        "40+ videos and counting, 3+ years running",
+        "The most recognizable asset in the brand's toolkit",
+      ],
+      team: [
+        { role: "Agency", names: "John Street Toronto" },
+        { role: "EVP Goodfood", names: "Jennifer Stahlke" },
+        { role: "Creative Director Goodfood", names: "Valentine de Leotard" },
+        { role: "Puppet", names: "Puppet Island" },
+      ],
+    },
+    resultsBg: "#000000",
+    resultsTextColor: "#FFF8EC",
+    resultsTeamBg: "#B7F5EC",
+    resultsTeamTextColor: "#0F3D2E",
+    credits: "Creative Direction: Valentine de Leotard (client & creative partner) · Agency: John St.",
+  },
+  {
     slug: "goodfood-rebranding",
     brand: "Goodfood",
     title: "A rebrand built to disrupt a category",
@@ -89,110 +259,6 @@ export const caseStudies = [
     ],
     results: null,
     credits: "Creative Direction & Brand Roll-Out: Valentine de Leotard, Goodfood, with a Toronto branding agency",
-  },
-  {
-    slug: "private-label-packaging",
-    brand: "Goodfood",
-    title: "Building the Private Label from zero",
-    category: "Packaging",
-    year: "2020–Present",
-    tileColor: "#D7F24C",
-    tileTextColor: "#0F3D2E",
-    tileImage: "/private-label/hero-chocolate-award.jpg",
-    tileObjectPosition: "object-top",
-    brief:
-      "In 2020, Goodfood launched its private label line. I joined to define the packaging territory and build the studio from the ground up.",
-    idea: "**Customers should never feel bored buying only Goodfood:** each product tells its own story, Trader Joe's-charming, inside one cohesive brand system.",
-    whatIDid:
-      "**We've designed nearly 4,000 SKUs, I personally designed over 900,** leading a team of 10 designers at a pace of 40 packages a week, concept to print in 48 hours.",
-    role: ["Creative Direction", "Packaging Design", "Studio Build-Out", "Art Direction", "Team Leadership"],
-    heroImage: "/private-label/hero-packaging-band.jpg",
-    heroAspect: "aspect-[3000/750]", // ratio réel de l'image : rien n'est rogné
-    sections: [
-      {
-        tag: "The system",
-        headline: "One system, every aisle.",
-        body: "Sauces, spreads, snacks, drinks and dessert, nearly 4,000 SKUs that had to feel like one family. **Playful enough to stand alone, disciplined enough to read as Goodfood side by side.**",
-        // Galerie horizontale, texte à gauche, photos entières (images optimisées dans public/private-label/gallery)
-        gallery: true,
-        galleryText: true,
-        beforeHighlights: true, // section placée avant la bande des highlights
-        images: [
-          "/private-label/gallery/gum.jpg",
-          "/private-label/gallery/yogurt-lemon.jpg",
-          "/private-label/gallery/frozen-vanilla.jpg",
-          "/private-label/gallery/frozen-fudge.jpg",
-          "/private-label/gallery/cake-1.jpg",
-          "/private-label/gallery/cake-2.jpg",
-          "/private-label/gallery/matcha-latte.jpg",
-          "/private-label/gallery/spring-water.jpg",
-          "/private-label/gallery/sparkling-water.jpg",
-          "/private-label/gallery/tonic-water.jpg",
-          "/private-label/gallery/coconut-water.jpg",
-          "/private-label/gallery/coffee.jpg",
-          "/private-label/gallery/coffee-2.jpg",
-          "/private-label/gallery/salt.jpg",
-          "/private-label/gallery/salt-coarse.jpg",
-          "/private-label/gallery/salt-sea.jpg",
-          "/private-label/gallery/salt-table.jpg",
-          "/private-label/gallery/olive-oil.jpg",
-          "/private-label/gallery/marshmallows.jpg",
-        ],
-      },
-      {
-        // GIF des chips, en bas de page (après la bande des highlights)
-        image: "/private-label/gallery/chips-flavours.gif", // version ralentie (0,6 s par saveur) et allégée de 08.gif
-      },
-      {
-        // Encadré : texte à gauche, kaléidoscope des fichiers techniques à droite (1 image par seconde)
-        box: true,
-        boxBeat: 1,
-        tag: "Behind the shelf",
-        headline: "Beautiful is only half the job.",
-        body: "A great concept means nothing if it can't be printed. Every one of those packages also had to be **press-ready down to the dieline** for our printers, and **fully compliant with Canadian food labelling regulations**, reviewed hand in hand with Regulatory Affairs, in English and in French.\n\nAlong the way, I became an expert in **Nutrition Facts tables**. Against my will.",
-        images: [
-          "/private-label/technical/arborio-rice.jpg",
-          "/private-label/technical/green-lentils.jpg",
-          "/private-label/technical/jasmine-rice.jpg",
-          "/private-label/technical/dried-black-beans.jpg",
-          "/private-label/technical/multicolour-quinoa-review.jpg",
-          "/private-label/technical/pearl-couscous.jpg",
-          "/private-label/technical/basmati-rice.jpg",
-          "/private-label/technical/red-lentils.jpg",
-          "/private-label/technical/bulgur-wheat.jpg",
-          "/private-label/technical/dry-chickpea.jpg",
-          "/private-label/technical/millet.jpg",
-          "/private-label/technical/dried-navy-beans.jpg",
-          "/private-label/technical/parboiled-white-rice.jpg",
-          "/private-label/technical/green-split-peas.jpg",
-          "/private-label/technical/cornmeal.jpg",
-          "/private-label/technical/pearl-barley.jpg",
-          "/private-label/technical/dried-red-kidney-beans.jpg",
-          "/private-label/technical/couscous.jpg",
-          "/private-label/technical/white-quinoa.jpg",
-        ],
-      },
-    ],
-    results: {
-      label: "The Recognition",
-      items: [
-        "Nearly 4,000 SKUs designed",
-        "900+ personally designed",
-        "48-hour concept-to-print pipeline",
-        "Global & Canadian design awards",
-      ],
-      team: [
-        { role: "Lead Designers", names: "Lucille Gamard, Charline Baubeau, Anna Maria Cipolla and so many more" },
-        { role: "Art Director", names: "Claudio Cutro" },
-        { role: "Photographer", names: "Ilich Leon" },
-        { role: "Food Stylist", names: "Cristina Camacho" },
-      ],
-    },
-    resultsBg: "#000000",
-    resultsTextColor: "#FFF8EC",
-    resultsTeamBg: "#B7F5EC",
-    resultsTeamTextColor: "#0F3D2E",
-    credits: "Creative Direction & Packaging Design: Valentine de Leotard, Goodfood Private Label Studio",
   },
   {
     slug: "davidstea",
@@ -308,71 +374,9 @@ export const caseStudies = [
     credits: "Creative Direction & Packaging Design: Valentine de Leotard, DAVIDsTEA Creative Studio",
   },
   {
-    slug: "richard",
-    brand: "Richard for Goodfood",
-    title: "How to build a distinctive asset",
-    category: "Distinctive Brand Asset",
-    year: "2023–Present",
-    tileColor: "#B7F5EC",
-    tileTextColor: "#0F3D2E",
-    tileVideo: "/richard/video.mp4",
-    tileImage: "/richard/hero.jpg",
-    brief:
-      "Almost any meal-kit ad could be the competition's: same claims, same stock bowls, same thirty forgettable seconds.",
-    idea: "Unless you find a character that dissociates you from the category entirely. That's Richard, **a local raccoon furious at Goodfood** because our meal kits are portioned so precisely that nothing's left for him to scavenge.",
-    whatIDid:
-      "Not there to look polished, there to provoke and be unmistakable: **more than 80% of people surveyed associate him with Goodfood on sight.**",
-    role: ["Brand Strategy", "Distinctive Asset Development", "Creative Direction (Client-side)", "Agency Partnership"],
-    featured: "80%+ unprompted brand association · live across email, site, social, YouTube & TV",
-    heroImage: "/richard/hero.jpg",
-    sections: [
-      {
-        videoFile: "/richard/video.mp4",
-        images: ["/richard/doorstep.jpg", "/richard/garbage-can.jpg"],
-        imageGrid: true,
-      },
-      {
-        tag: "The rollout",
-        headline: "Everywhere, on purpose.",
-        body: "**A distinctive asset only works if it's everywhere**: email, site, social, YouTube, TV. He shows up for Boxing Day, Valentine's, Canada Day, game day, whatever the calendar needs, built with John St., me on both sides of the table.",
-        images: [
-          "/richard/camp-goodfood-kid.jpg",
-        ],
-        imageGrid: true,
-      },
-      {
-        tag: "The puppet",
-        headline: "Loved enough to adopt.",
-        body: "Kids loved Richard so much, Goodfood turned him into a limited-edition puppet. **$5 from every puppet sold went to Second Harvest**, bringing the joke full circle: the raccoon mad about zero waste, helping reduce it.",
-        images: ["/richard/puppet.jpg"],
-        textBelow: true,
-      },
-    ],
-    results: {
-      label: "The Run",
-      items: [
-        "80%+ unprompted brand association",
-        "Live everywhere: email, site, social, YouTube & TV",
-        "40+ videos and counting, 3+ years running",
-        "The most recognizable asset in the brand's toolkit",
-      ],
-      team: [
-        { role: "Agency", names: "John Street Toronto" },
-        { role: "EVP Goodfood", names: "Jennifer Stahlke" },
-        { role: "Creative Director Goodfood", names: "Valentine de Leotard" },
-        { role: "Puppet", names: "Puppet Island" },
-      ],
-    },
-    resultsBg: "#000000",
-    resultsTextColor: "#FFF8EC",
-    resultsTeamBg: "#B7F5EC",
-    resultsTeamTextColor: "#0F3D2E",
-    credits: "Creative Direction: Valentine de Leotard (client & creative partner) · Agency: John St.",
-  },
-  {
     slug: "goodfood-presents",
     brand: "Goodfood",
-    title: "Goodfood Presents",
+    title: "Goodfood Presents, 650K+ views on YouTube",
     category: "Documentary Series",
     year: "2022–2023",
     tileColor: "#B7F5EC",
@@ -384,11 +388,9 @@ export const caseStudies = [
     whatIDid:
       "I traveled coast to coast to meet them: a Pacific fishing family, a Manitoba cattle farm, a Montreal institution running on one recipe since 1969.",
     role: ["Concept & Creative Direction", "Campaign Direction", "Social Media"],
-    heroCarousel: [
-      "/goodfood-presents/hero-1.jpg",
-      "/goodfood-presents/hero-2.jpg",
-      "/goodfood-presents/hero-3.jpg",
-    ],
+    heroImage: "/kaleido2/04.jpg", // mosaïque des tournages
+    tileImage: "/goodfood-presents/hero-1.jpg", // carte de la home : on garde les vaches
+    heroAspect: "aspect-[1600/685]", // ratio réel : aucune case n'est coupée
     sections: [
       {
         tag: "British Columbia",
@@ -480,7 +482,8 @@ export const caseStudies = [
     year: "2021",
     tileColor: "#B7F5EC",
     tileTextColor: "#0F3D2E",
-    tileImage: "/jonny-new/cover.jpg",
+    tileImage: "/jonny-new/02-bag.jpg", // carte de la home : le sac
+    tilePosition: "44.75% 50%", // le sac est un peu à gauche dans la photo : on le recentre dans la carte
     brief:
       "During Goodfood's On Demand chapter, we launched a series of dark-kitchen restaurants, this one was my playground.",
     idea: "**A handcrafted, made-to-order Italian sandwich delivered in 20 minutes, no room for second place.**",

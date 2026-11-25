@@ -8,7 +8,10 @@ import { caseUrl } from "./common.js";
 
 function cardMedia(cs) {
   const src = cs.tileImage || cs.heroImage || cs.heroCarousel?.[0];
-  const pos = cs.tileObjectPosition === "object-top" ? ' style="object-position: top"' : "";
+  // Cadrage de la carte : tilePosition ("x% y%") ou l'ancien réglage object-top
+  const pos = cs.tilePosition
+    ? ` style="object-position: ${cs.tilePosition}"`
+    : cs.tileObjectPosition === "object-top" ? ' style="object-position: top"' : "";
   const img = `<img src="/thumbs${src}" onerror="this.onerror=null;this.src='${src}'" alt="${cs.brand} — ${cs.title}" loading="lazy"${pos} />`;
   // tileVideo = fichier mp4, tileYoutube = extrait d'une vidéo YouTube en boucle
   if (cs.tileVideo) {
@@ -67,7 +70,23 @@ export function initYoutubeTiles() {
       // on cache alors la vidéo derrière la photo, et on la réaffiche une demi-seconde plus tard
       const show = () => { clearTimeout(showTimer); showTimer = setTimeout(() => tile.classList.add("is-playing"), 500); };
       const hide = () => { clearTimeout(showTimer); tile.classList.remove("is-playing"); };
-      const restart = () => { hide(); player.seekTo(start, true); };
+      // Retour au début de l'extrait : on cache la vidéo le temps du saut, puis on la réaffiche nous-mêmes
+      // (YouTube ne renvoie pas toujours l'état "lecture" après un saut)
+      const restart = () => { hide(); player.seekTo(start, true); show(); };
+      // YouTube ne démarre pas une vidéo hors écran : on (re)lance la lecture dès que la carte est visible,
+      // et on la met en pause quand elle sort de l'écran
+      let ready = false;
+      let visible = false;
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (!ready) return;
+        if (visible) {
+          player.mute();
+          player.playVideo();
+          if (player.getPlayerState?.() === YT.PlayerState.PLAYING) show();
+        }
+        else { player.pauseVideo(); hide(); }
+      }, { threshold: 0.1 }).observe(tile);
       const player = new YT.Player(tile.firstElementChild, {
         videoId: tile.dataset.yt,
         playerVars: {
@@ -75,7 +94,11 @@ export function initYoutubeTiles() {
           disablekb: 1, fs: 0, iv_load_policy: 3, modestbranding: 1,
         },
         events: {
-          onReady: (e) => { e.target.mute(); e.target.playVideo(); },
+          onReady: (e) => {
+            e.target.mute();
+            ready = true;
+            if (visible) e.target.playVideo();
+          },
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.PLAYING) {
               show(); // la photo dessous disparaît
