@@ -337,18 +337,17 @@ ul { list-style: none; }
 /* ---------- Fenêtre vidéo (entre le hero et About) ---------- */
 .peek {
   position: relative;
-  width: 70vw;
+  width: 100%; /* bord à bord */
   height: 56vh;
   overflow: hidden;
-  margin: 10vh auto 0; /* centrée */
-  border-radius: 10px;
+  margin: 10vh 0 0;
 }
-/* Le JS décale le reel pour qu'il reste fixe à l'écran (centré verticalement) */
+/* Le JS décale le reel pour qu'il reste fixe à l'écran */
 .peek__reel {
   position: absolute; top: 0;
   left: 0;
-  /* Même largeur que la fenêtre, un peu plus haut qu'elle : les visuels sont peu rognés */
-  width: 100%; height: 70vh;
+  /* Plein écran : la fenêtre (bord à bord) laisse toujours voir le reel, sans bande vide */
+  width: 100%; height: 100vh;
   background: var(--ink);
   will-change: transform;
 }

@@ -103,11 +103,11 @@ function scrollAnimations() {
   // Fenêtre reel : on décale le reel exactement à l'inverse du scroll, il reste donc
   // immobile à l'écran pendant que la fenêtre (et toute la page) glisse par-dessus
   kaleidoscope();
-  // Le reel (70vh de haut) reste à 15vh du haut de l'écran : centré verticalement
+  // Le reel (plein écran) reste collé en haut de l'écran
   gsap.fromTo(".peek__reel",
-    { y: () => window.innerHeight * 0.15 - window.innerHeight },
+    { y: () => -window.innerHeight },
     {
-      y: () => window.innerHeight * 0.15 + document.querySelector(".peek").offsetHeight,
+      y: () => document.querySelector(".peek").offsetHeight,
       ease: "none",
       scrollTrigger: { trigger: ".peek", start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
     });
