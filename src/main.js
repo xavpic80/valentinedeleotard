@@ -4,36 +4,9 @@ import {
   revealTitles, revealLabels, contactReveal, refreshOnImages,
 } from "./common.js";
 import { caseStudies } from "./data/caseStudies.js";
+import { renderWheel, initWheel, initYoutubeTiles } from "./wheel.js";
 
-/* ------------------------------------------------------------------ */
-/*  Grille des projets, générée depuis les données                    */
-/* ------------------------------------------------------------------ */
-const LAYOUT = ["a", "b", "c", "d"]; // motif de mise en page qui se répète
-
-function tileMedia(cs) {
-  if (cs.tileVideo) {
-    return `<video src="${cs.tileVideo}" poster="${cs.tileImage || ""}" autoplay muted loop playsinline></video>`;
-  }
-  const src = cs.tileImage || cs.heroImage || cs.heroCarousel?.[0];
-  const pos = cs.tileObjectPosition === "object-top" ? ' style="object-position: top"' : "";
-  return `<img src="${src}" alt="${cs.brand} — ${cs.title}" loading="lazy"${pos} />`;
-}
-
-function renderWork() {
-  const grid = document.querySelector(".work__grid");
-  grid.innerHTML = caseStudies
-    .filter((cs) => !cs.draft)
-    .map((cs, i) => `
-      <a href="${caseUrl(cs.slug)}" class="project project--${LAYOUT[i % 4]}" data-cursor="View" data-transition>
-        <div class="project__media"><div class="ph ph--filled">${tileMedia(cs)}</div></div>
-        <div class="project__meta">
-          <p class="project__info"><span>${String(i + 1).padStart(2, "0")}</span><span>${cs.category} · ${cs.year}</span></p>
-          <h3>${cs.brand}</h3>
-          <p class="project__title">${cs.title}</p>
-        </div>
-      </a>`)
-    .join("");
-}
+const projects = caseStudies.filter((cs) => !cs.draft);
 
 /* ------------------------------------------------------------------ */
 /*  Loader + intro                                                    */
@@ -117,34 +90,8 @@ function scrollAnimations() {
     scrollTrigger: { trigger: ".about__more", start: "top 85%" },
   });
 
-  // Projets : révélation en rideau + parallaxe interne
-  gsap.utils.toArray(".project").forEach((project) => {
-    const media = project.querySelector(".project__media");
-    const img = project.querySelector(".ph");
-    const meta = project.querySelectorAll(".project__meta > *");
-
-    gsap.timeline({ scrollTrigger: { trigger: project, start: "top 85%" } })
-      .from(media, { clipPath: "inset(100% 0% 0% 0%)", duration: 1.4, ease: EASE_INOUT })
-      .from(img, { scale: 1.3, duration: 1.8, ease: EASE_OUT }, 0)
-      .from(meta, { y: 20, opacity: 0, stagger: 0.08, duration: 0.8, ease: EASE_OUT }, 0.6);
-
-    gsap.fromTo(img, { yPercent: -16 }, {
-      yPercent: 0, ease: "none",
-      scrollTrigger: { trigger: project, start: "top bottom", end: "bottom top", scrub: true },
-    });
-
-    if (!isTouch) {
-      const inner = project.querySelector(".ph img, .ph video");
-      project.addEventListener("mouseenter", () => {
-        gsap.to(media, { scale: 0.97, duration: 0.8, ease: EASE_OUT });
-        gsap.to(inner, { scale: 1.08, duration: 1.2, ease: EASE_OUT });
-      });
-      project.addEventListener("mouseleave", () => {
-        gsap.to(media, { scale: 1, duration: 0.8, ease: EASE_OUT });
-        gsap.to(inner, { scale: 1, duration: 1.2, ease: EASE_OUT });
-      });
-    }
-  });
+  // Selected work : la roue (voir src/wheel.js)
+  initWheel(projects);
 
   // Scroll horizontal épinglé
   const track = document.querySelector(".horizontal__track");
@@ -201,7 +148,8 @@ function scrollAnimations() {
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 if (!location.hash) window.scrollTo(0, 0);
 
-renderWork();
+renderWheel(projects);
+initYoutubeTiles();
 initSmoother();
 pageEnter();
 
@@ -210,6 +158,7 @@ pageEnter();
   bindPageLinks();
   if (reduceMotion) {
     document.querySelector(".loader")?.remove();
+    initWheel(projects, { animate: false });
     return;
   }
   initCursor();
