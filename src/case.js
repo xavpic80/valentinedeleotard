@@ -1,6 +1,6 @@
 import {
   gsap, ScrollTrigger, SplitText, reduceMotion, isTouch, EASE_OUT, EASE_INOUT,
-  caseUrl, rich, inline, initSmoother, smoother, initCursor, bindPageLinks, pageEnter,
+  caseUrl, rich, inline, noOrphans, initSmoother, smoother, initCursor, bindPageLinks, pageEnter,
   revealTitles, revealLabels, revealFade, revealMedia, contactReveal, refreshOnImages,
 } from "./common.js";
 import { caseStudies } from "./data/caseStudies.js";
@@ -468,6 +468,7 @@ function scrollAnimations() {
 /* ------------------------------------------------------------------ */
 if (cs) {
   render();
+  noOrphans(document.querySelector("#case"));
   initSmoother();
   (async () => {
     await document.fonts.ready;

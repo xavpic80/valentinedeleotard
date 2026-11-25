@@ -358,3 +358,11 @@ ul { list-style: none; }
   opacity: 0;
 }
 .peek__reel img:first-child { opacity: 1; }
+
+/* Pas de mot orphelin : coupe des lignes équilibrée */
+p, li, dd, blockquote { text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; }
+
+/* Légendes des cartes : la catégorie ne se coupe jamais ; si elle ne tient pas, elle passe entière à la ligne */
+.h-card p { flex-wrap: wrap; row-gap: 0.2rem; }
+.h-card p em { white-space: nowrap; }

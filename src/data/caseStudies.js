@@ -119,7 +119,7 @@ export const caseStudies = [
         beforeHighlights: true, // section placée avant la bande des highlights
         images: [
           "/private-label/gallery/gum.jpg",
-          "/private-label/gallery/yogurt.jpg",
+          "/private-label/gallery/yogurt-lemon.jpg",
           "/private-label/gallery/frozen-vanilla.jpg",
           "/private-label/gallery/frozen-fudge.jpg",
           "/private-label/gallery/cake-1.jpg",

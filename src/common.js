@@ -14,6 +14,32 @@ export const isTouch = window.matchMedia("(hover: none)").matches;
 export const EASE_OUT = "expo.out";
 export const EASE_INOUT = "power4.inOut";
 
+// Pas de mot orphelin : on lie les deux derniers mots de chaque texte par une espace insécable
+// (en plus de text-wrap: pretty / balance dans le CSS, pour les navigateurs qui ne le gèrent pas)
+export function noOrphans(root = document) {
+  root.querySelectorAll("p, h1, h2, h3, h4, li, dd, blockquote").forEach((el) => {
+    if (el.closest(".hero__title, .contact__big, .loader, .nav, .marquee")) return;
+    if (el.querySelector("p, h1, h2, h3, h4, li, dd, blockquote")) return; // on traite le bloc le plus intérieur
+    if (el.textContent.trim().split(/\s+/).length < 3) return;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    // On lit le texte à rebours : espaces finales, puis le dernier mot, puis la première espace = celle à remplacer
+    let seenWord = false;
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      const v = nodes[i].nodeValue;
+      for (let j = v.length - 1; j >= 0; j--) {
+        const space = /\s/.test(v[j]) && v[j] !== "\u00A0";
+        if (!space) seenWord = true;
+        else if (seenWord) {
+          nodes[i].nodeValue = v.slice(0, j) + "\u00A0" + v.slice(j + 1);
+          return;
+        }
+      }
+    }
+  });
+}
+
 export const caseUrl = (slug) => `/case.html?slug=${encodeURIComponent(slug)}`;
 
 // **gras** -> <strong>, paragraphes séparés par une ligne vide

@@ -1,6 +1,6 @@
 import {
   gsap, ScrollTrigger, SplitText, reduceMotion, isTouch, EASE_OUT, EASE_INOUT,
-  caseUrl, initSmoother, smoother, initCursor, bindPageLinks, pageEnter,
+  caseUrl, noOrphans, initSmoother, smoother, initCursor, bindPageLinks, pageEnter,
   revealTitles, revealLabels, contactReveal, refreshOnImages,
 } from "./common.js";
 import { caseStudies } from "./data/caseStudies.js";
@@ -183,6 +183,7 @@ if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 if (!location.hash) window.scrollTo(0, 0);
 
 renderWorkCards(projects);
+noOrphans();
 initYoutubeTiles();
 initSmoother();
 pageEnter();
