@@ -295,3 +295,36 @@
 .cs-gallery__intro .cs-headline { margin-bottom: 1.5rem; }
 .cs-gallery--natural .cs-gallery__card { width: auto; height: clamp(300px, 60vh, 620px); aspect-ratio: auto; }
 .cs-gallery--natural .cs-gallery__card img { width: auto; height: 100%; object-fit: contain; }
+
+/* Image recadrée sur une zone (zoom + focus dans les données) */
+.media--focus { position: relative; }
+.media--focus img { position: absolute; max-width: none; object-fit: cover; display: block; }
+
+/* ---------- Encadré (box: true) : texte + kaléidoscope ---------- */
+.cs-box-wrap { padding: 8vh var(--pad); }
+.cs-box {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 0.8fr);
+  gap: 5vw;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  background: #f2f2f0;
+  border-radius: 14px;
+}
+.cs-box__text .section-label { margin-bottom: 1.5rem; }
+.cs-box__text .cs-headline { margin-bottom: 2rem; }
+.cs-box__text .cs-body { max-width: 46ch; }
+.cs-box__reel {
+  position: relative;
+  aspect-ratio: 835 / 1400;
+  max-height: 75vh;
+  justify-self: center;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(20, 20, 19, 0.08);
+}
+.cs-box__reel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+.cs-box__reel img:first-child { opacity: 1; }
+@media (max-width: 900px) { .cs-box { grid-template-columns: 1fr; } }

@@ -17,6 +17,16 @@ if (!cs) location.replace("/");
 const isVideo = (src) => /\.mp4$/i.test(src);
 
 function mediaItem(item, cls = "") {
+  // Image recadrée sur une zone : { src, zoom, focus: [x, y] } (x et y entre 0 et 1, centre de la zone à garder)
+  if (typeof item === "object" && item.src && item.zoom) {
+    const z = item.zoom;
+    const [fx, fy] = item.focus || [0.5, 0.5];
+    const clamp = (v) => Math.min(0, Math.max(1 - z, v));
+    const left = clamp(0.5 - fx * z) * 100;
+    const top = clamp(0.5 - fy * z) * 100;
+    return `<div class="media media--focus ${cls}" style="aspect-ratio:${item.aspect || "3/2"}">
+      <img src="${item.src}" alt="${cs.brand}" loading="lazy" style="width:${z * 100}%;height:${z * 100}%;left:${left}%;top:${top}%" /></div>`;
+  }
   // Carte texte (ex. "A fandom of its own.")
   if (typeof item === "object" && item.heading) {
     return `<div class="cs-card ${cls}" style="background:${item.bg || "var(--ink)"};color:${item.color || "#fff"}">
@@ -103,7 +113,22 @@ function sectionText(s) {
   </div>`;
 }
 
+// Encadré : texte à gauche, kaléidoscope d'images à droite
+function renderBox(s) {
+  return `<section class="cs-box-wrap"><div class="cs-box">
+    <div class="cs-box__text">
+      ${s.tag ? `<p class="section-label">${s.tag}</p>` : ""}
+      ${s.headline ? `<h2 class="cs-headline">${s.headline}</h2>` : ""}
+      ${s.body ? `<div class="cs-body">${rich(s.body)}</div>` : ""}
+    </div>
+    <div class="cs-box__reel" data-kaleido data-beat="${s.boxBeat || 1}">
+      ${(s.images || []).map((src, n) => `<img src="${src}" alt="" ${n < 2 ? "" : 'loading="lazy"'} />`).join("")}
+    </div>
+  </div></section>`;
+}
+
 function renderSection(s, i) {
+  if (s.box) return renderBox(s);
   const text = s.galleryText ? "" : sectionText(s); // galleryText : le texte est dans la bande
   const media = sectionMedia(s);
   return `<section class="cs-section${s.gallery ? " cs-section--gallery" : ""}" data-index="${i}">
@@ -256,6 +281,30 @@ function strips() {
   });
 }
 
+// Kaléidoscope : une image par "beat", fondu enchaîné avec flou (comme le reel de la home)
+function kaleidoscopes() {
+  document.querySelectorAll("[data-kaleido]").forEach((box) => {
+    const imgs = [...box.querySelectorAll("img")];
+    if (imgs.length < 2) return;
+    const beat = Number(box.dataset.beat) || 1;
+    let i = 0;
+    gsap.set(imgs, { opacity: 0, filter: "blur(20px)" });
+    gsap.set(imgs[0], { opacity: 1, filter: "blur(0px)" });
+    const loop = gsap.delayedCall(beat, function tick() {
+      const prev = imgs[i];
+      i = (i + 1) % imgs.length;
+      imgs[i].loading = "eager"; // on charge la suivante à temps
+      gsap.to(prev, { opacity: 0, filter: "blur(20px)", duration: 0.35, ease: "power1.inOut" });
+      gsap.to(imgs[i], { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power1.inOut" });
+      loop.restart(true);
+    });
+    ScrollTrigger.create({
+      trigger: box, start: "top bottom", end: "bottom top",
+      onToggle: (self) => (self.isActive ? loop.resume() : loop.pause()),
+    });
+  });
+}
+
 // Pendant le scroll, aucune carte ne grandit, et celle qui était agrandie reprend sa taille
 let scrolling = false;
 let scrollTimer = null;
@@ -376,7 +425,7 @@ function intro() {
 function scrollAnimations() {
   revealTitles(".cs-headline, .cs-next__title");
   revealLabels(".cs-intro .section-label, .cs-section .section-label, .cs-results .section-label");
-  revealFade(".cs-body, .cs-roles, .cs-featured, .cs-quote, .cs-results__desc, .cs-team, .cs-credits, .cs-card");
+  revealFade(".cs-body, .cs-roles, .cs-featured, .cs-quote, .cs-results__desc, .cs-team, .cs-credits, .cs-card, .cs-box");
   revealMedia(".cs-section .media:not(.cs-strip__item), .cs-results__img");
 
   gsap.utils.toArray(".cs-results__list li").forEach((li, i) => {
@@ -430,6 +479,7 @@ if (cs) {
     strips();
     galleries();
     lightbox();
+    kaleidoscopes();
     intro();
     scrollAnimations();
     refreshOnImages();
