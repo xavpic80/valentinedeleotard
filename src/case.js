@@ -328,6 +328,15 @@ function galleries() {
   document.querySelectorAll(".cs-gallery").forEach((gallery) => {
     const track = gallery.querySelector(".cs-gallery__track");
     const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    // 1. La section reste fixe pendant le défilement + une pause de fin (25 %) pour bien voir la dernière image
+    ScrollTrigger.create({
+      trigger: gallery,
+      start: "center center",
+      end: () => "+=" + distance() * 1.25,
+      pin: true,
+      invalidateOnRefresh: true,
+    });
+    // 2. Les cartes défilent de façon régulière (référence pour le redressement des cartes)
     const tween = gsap.to(track, {
       x: () => -distance(),
       ease: "none",
@@ -335,7 +344,6 @@ function galleries() {
         trigger: gallery,
         start: "center center",
         end: () => "+=" + distance(),
-        pin: true,
         scrub: 1,
         invalidateOnRefresh: true,
       },
@@ -343,7 +351,8 @@ function galleries() {
     gsap.utils.toArray(".cs-gallery__card", gallery).forEach((card) => {
       gsap.from(card, {
         rotate: 4, yPercent: 15, opacity: 0.3, ease: "none",
-        scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 100%", end: "left 60%", scrub: true },
+        // la carte est droite dès qu'elle est entièrement à l'écran (même la dernière)
+        scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 110%", end: "left 85%", scrub: true },
       });
       // Survol : toute la carte grandit de 30 % et passe devant ses voisines,
       // seulement quand la souris bouge vraiment (jamais pendant le scroll)

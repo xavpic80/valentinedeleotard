@@ -68,11 +68,11 @@ export function initYoutubeTiles() {
       let showTimer = null;
       // YouTube affiche brièvement son icône pause au démarrage et à chaque retour au début :
       // on cache alors la vidéo derrière la photo, et on la réaffiche une demi-seconde plus tard
-      const show = () => { clearTimeout(showTimer); showTimer = setTimeout(() => tile.classList.add("is-playing"), 500); };
+      const show = (delay = 500) => { clearTimeout(showTimer); showTimer = setTimeout(() => tile.classList.add("is-playing"), delay); };
       const hide = () => { clearTimeout(showTimer); tile.classList.remove("is-playing"); };
       // Retour au début de l'extrait : on cache la vidéo le temps du saut, puis on la réaffiche nous-mêmes
       // (YouTube ne renvoie pas toujours l'état "lecture" après un saut)
-      const restart = () => { hide(); player.seekTo(start, true); show(); };
+      const restart = () => { hide(); player.seekTo(start, true); show(1100); };
       // YouTube ne démarre pas une vidéo hors écran : on (re)lance la lecture dès que la carte est visible,
       // et on la met en pause quand elle sort de l'écran
       let ready = false;
@@ -81,9 +81,10 @@ export function initYoutubeTiles() {
         visible = entry.isIntersecting;
         if (!ready) return;
         if (visible) {
+          hide(); // l'icône play/pause de YouTube apparaît ~1 s à la reprise : on attend avant de réafficher
           player.mute();
           player.playVideo();
-          if (player.getPlayerState?.() === YT.PlayerState.PLAYING) show();
+          show(1100);
         }
         else { player.pauseVideo(); hide(); }
       }, { threshold: 0.1 }).observe(tile);
@@ -101,7 +102,7 @@ export function initYoutubeTiles() {
           },
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.PLAYING) {
-              show(); // la photo dessous disparaît
+              show(1100); // la photo dessous disparaît, une fois l'icône de YouTube partie
               if (end && !watch) {
                 watch = setInterval(() => {
                   if (player.getCurrentTime?.() >= end) restart();

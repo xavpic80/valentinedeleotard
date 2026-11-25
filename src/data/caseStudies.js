@@ -509,6 +509,31 @@ export const caseStudies = [
     credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
   },
   {
+    slug: "food-photography",
+    brand: "Food Photography",
+    title: "Food photo & art direction",
+    category: "Photo Art Direction",
+    year: "Goodfood",
+    tileImage: "/projects/foodphoto/fork-web.jpg", // carte de la home : la fourchette (copie optimisée de fork1.jpg)
+    brief:
+      "Selected recipe and product photography shot under my art direction, **styling, lighting and composition built for both editorial warmth and e-commerce clarity.**",
+    role: ["Photo Art Direction", "Food Styling Direction", "Creative Direction"],
+    heroImage: "/projects/foodphoto/HolidayDinner.jpg",
+    sections: [
+      {
+        tag: "Recipes",
+        images: [
+          "/projects/foodphoto/gnocchi.jpg",
+          "/projects/foodphoto/thai-curry.jpg",
+          "/projects/foodphoto/thai-bbq-chicken.jpg",
+          "/projects/foodphoto/spiced-chicken.jpg",
+        ],
+      },
+    ],
+    results: null,
+    credits: "Photo Art Direction: Valentine de Leotard, for Goodfood",
+  },
+  {
     slug: "jus-laitues",
     brand: "Jus & Laitues",
     title: "Making a virtual restaurant feel real",
@@ -540,31 +565,6 @@ export const caseStudies = [
     ],
     results: null,
     credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
-  },
-  {
-    slug: "food-photography",
-    brand: "Food Photography",
-    title: "Food photo & art direction",
-    category: "Photo Art Direction",
-    year: "Goodfood",
-    tileImage: "/projects/foodphoto/HolidayDinner.jpg",
-    brief:
-      "Selected recipe and product photography shot under my art direction, **styling, lighting and composition built for both editorial warmth and e-commerce clarity.**",
-    role: ["Photo Art Direction", "Food Styling Direction", "Creative Direction"],
-    heroImage: "/projects/foodphoto/HolidayDinner.jpg",
-    sections: [
-      {
-        tag: "Recipes",
-        images: [
-          "/projects/foodphoto/gnocchi.jpg",
-          "/projects/foodphoto/thai-curry.jpg",
-          "/projects/foodphoto/thai-bbq-chicken.jpg",
-          "/projects/foodphoto/spiced-chicken.jpg",
-        ],
-      },
-    ],
-    results: null,
-    credits: "Photo Art Direction: Valentine de Leotard, for Goodfood",
   },
 ]
 

@@ -130,6 +130,18 @@ function scrollAnimations() {
   // Selected work : scroll horizontal épinglé
   const track = document.querySelector(".horizontal__track");
   const getDistance = () => track.scrollWidth - window.innerWidth;
+  // 1. La section reste fixe pendant le défilement des cartes + une pause de fin (25 %) pour bien voir la dernière image
+  ScrollTrigger.create({
+    trigger: ".horizontal",
+    start: "top top",
+    end: () => "+=" + getDistance() * 1.25,
+    pin: true,
+    // Enveloppe déjà en place : à un changement d'orientation, GSAP ne déplace pas la section
+    // (la déplacer recharge l'iframe YouTube et casse l'épinglage)
+    pinSpacer: ".horizontal-pin",
+    invalidateOnRefresh: true,
+  });
+  // 2. Les cartes défilent de façon régulière (référence pour le redressement des cartes)
   const hTween = gsap.to(track, {
     x: () => -getDistance(),
     ease: "none",
@@ -137,7 +149,6 @@ function scrollAnimations() {
       trigger: ".horizontal",
       start: "top top",
       end: () => "+=" + getDistance(),
-      pin: true,
       scrub: 1,
       invalidateOnRefresh: true,
     },
@@ -145,7 +156,8 @@ function scrollAnimations() {
   gsap.utils.toArray(".h-card").forEach((card) => {
     gsap.from(card, {
       rotate: 4, yPercent: 15, opacity: 0.3, ease: "none",
-      scrollTrigger: { trigger: card, containerAnimation: hTween, start: "left 100%", end: "left 60%", scrub: true },
+      // la carte est droite dès qu'elle est entièrement à l'écran (même la dernière)
+      scrollTrigger: { trigger: card, containerAnimation: hTween, start: "left 110%", end: "left 85%", scrub: true },
     });
   });
 

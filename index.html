@@ -92,6 +92,8 @@
         </section>
 
         <!-- SELECTED WORK : scroll horizontal épinglé (cartes ajoutées par src/work-cards.js) -->
+        <!-- Enveloppe fixe pour l'épinglage : GSAP n'a jamais à déplacer la section (elle contient un iframe YouTube) -->
+        <div class="horizontal-pin">
         <section class="horizontal" id="work">
           <div class="horizontal__track">
             <div class="horizontal__intro">
@@ -103,6 +105,7 @@
             </div>
           </div>
         </section>
+        </div>
 
         <!-- MARQUEE -->
         <section class="marquee" aria-label="Services">
