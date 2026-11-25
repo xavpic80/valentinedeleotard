@@ -21,7 +21,7 @@
 .cs-hero__title {
   font-size: clamp(2.8rem, 8vw, 8.5rem);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 1.05;
   letter-spacing: -0.045em;
   max-width: 14ch;
   margin-bottom: 8vh;
@@ -82,7 +82,7 @@
 .cs-headline {
   font-size: clamp(2.2rem, 5vw, 5rem);
   font-weight: 400;
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.04em;
 }
 .cs-section__text .cs-body { max-width: 46ch; justify-self: end; }
@@ -117,7 +117,7 @@
   display: flex; flex-direction: column; justify-content: flex-end;
   min-height: 100%;
 }
-.cs-card h4 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2.4rem; line-height: 1; margin-bottom: 1rem; }
+.cs-card h4 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2.4rem; line-height: 1.1; margin-bottom: 1rem; }
 .cs-card p { line-height: 1.5; opacity: 0.85; }
 .cs-card strong { font-weight: 500; }
 
@@ -150,40 +150,54 @@
 
 /* ---------- Résultats ---------- */
 .cs-results {
-  margin: 10vh var(--pad);
-  padding: 12vh 6vw;
+  padding: 12vh var(--pad);
   background: var(--ink);
   color: #fff;
 }
-.cs-results .section-label { color: rgba(255, 255, 255, 0.5); }
+.cs-results .section-label { color: rgba(255, 255, 255, 0.5); margin-bottom: 3rem; }
+.cs-results__stat { display: flex; align-items: flex-end; gap: 3rem; flex-wrap: wrap; }
 .cs-stat {
-  font-size: clamp(5rem, 16vw, 15rem);
+  font-size: clamp(5rem, 14vw, 13rem);
   line-height: 0.85;
   letter-spacing: -0.05em;
   font-weight: 300;
 }
-.cs-stat__label { margin-top: 1rem; color: rgba(255, 255, 255, 0.6); max-width: 40ch; }
+.cs-stat__label { color: rgba(255, 255, 255, 0.6); max-width: 30ch; padding-bottom: 1rem; }
 .cs-results__desc {
-  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
-  line-height: 1.2;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  line-height: 1.25;
   letter-spacing: -0.02em;
-  max-width: 30ch;
-  margin-top: 4rem;
+  max-width: 34ch;
+  margin-top: 3rem;
 }
-.cs-results__list { margin-top: 4rem; }
+/* Les chiffres clés, côte à côte */
+.cs-results__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem 2rem;
+}
 .cs-results__list li {
-  display: grid; grid-template-columns: 4rem 1fr;
-  padding: 1.6rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  font-size: clamp(1.3rem, 2.6vw, 2.4rem);
-  letter-spacing: -0.02em;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-.cs-results__list li span { font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); padding-top: 0.6em; }
+.cs-results__list li span {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+.cs-results__list li p {
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
 .cs-results__list strong { font-weight: 500; }
-.cs-results__img { margin-top: 4rem; }
-.cs-team { margin-top: 6rem; }
+
+/* Équipe, en fin de page */
+.cs-team { padding: 10vh var(--pad) 0; }
 .cs-team dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
-.cs-team dt { font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+.cs-team dt { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
 .cs-team dd { font-size: 1.1rem; line-height: 1.4; }
 
 .cs-credits { padding: 4vh var(--pad) 0; font-size: 0.85rem; color: var(--muted); }
@@ -199,7 +213,7 @@
 .cs-next__title {
   font-size: clamp(3.5rem, 12vw, 12rem);
   font-weight: 400;
-  line-height: 0.9;
+  line-height: 1.02;
   letter-spacing: -0.05em;
 }
 .cs-next__img { width: clamp(160px, 22vw, 360px); aspect-ratio: 4 / 3; flex-shrink: 0; }
@@ -221,3 +235,23 @@
 
 /* Diaporama du hero : même marge de parallaxe que l'image simple */
 .cs-hero__media.media--slideshow img { inset: auto; top: -10%; left: 0; height: 115%; }
+
+/* Hero au format imposé : l'image remplit exactement le cadre, sans débord pour la parallaxe */
+.cs-hero__media.is-fixed img { top: 0; height: 100%; }
+
+/* Image recadrée (imageCrop dans les données) */
+.media--crop img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Bande de highlights avec image : texte à gauche, image à droite */
+.cs-results.has-image {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5vw;
+  align-items: center;
+}
+.cs-results.has-image .cs-results__list { grid-template-columns: 1fr 1fr; }
+.cs-results__img { border-radius: 10px; }
+.cs-results__img img { width: 100%; height: auto; display: block; }
+@media (max-width: 900px) {
+  .cs-results.has-image { grid-template-columns: 1fr; }
+}

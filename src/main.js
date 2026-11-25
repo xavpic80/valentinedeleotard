@@ -4,7 +4,7 @@ import {
   revealTitles, revealLabels, contactReveal, refreshOnImages,
 } from "./common.js";
 import { caseStudies } from "./data/caseStudies.js";
-import { renderWheel, initWheel, initYoutubeTiles } from "./wheel.js";
+import { renderWorkCards, initYoutubeTiles } from "./work-cards.js";
 
 const projects = caseStudies.filter((cs) => !cs.draft);
 
@@ -69,11 +69,47 @@ function heroIntro() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Kaleidoscope reel : un visuel par seconde, fondu enchaîné avec flou  */
+/* ------------------------------------------------------------------ */
+const REEL_BEAT = 1; // secondes par visuel
+const REEL_FADE = 0.45; // durée du fondu
+
+function kaleidoscope() {
+  const imgs = gsap.utils.toArray(".peek__reel img");
+  let i = 0;
+  gsap.set(imgs, { opacity: 0, filter: "blur(24px)" });
+  gsap.set(imgs[0], { opacity: 1, filter: "blur(0px)" });
+  const tick = () => {
+    const prev = imgs[i];
+    i = (i + 1) % imgs.length;
+    gsap.to(prev, { opacity: 0, filter: "blur(24px)", duration: REEL_FADE, ease: "power1.inOut" });
+    gsap.to(imgs[i], { opacity: 1, filter: "blur(0px)", duration: REEL_FADE, ease: "power1.inOut" });
+  };
+  const loop = gsap.delayedCall(REEL_BEAT, function repeat() { tick(); loop.restart(true); });
+  // Pause quand la fenêtre est hors écran
+  ScrollTrigger.create({
+    trigger: ".peek", start: "top bottom", end: "bottom top",
+    onToggle: (self) => (self.isActive ? loop.resume() : loop.pause()),
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /*  Animations au scroll                                              */
 /* ------------------------------------------------------------------ */
 function scrollAnimations() {
   revealTitles();
   revealLabels(".section-label, .about__label");
+
+  // Fenêtre reel : on décale le reel exactement à l'inverse du scroll, il reste donc
+  // immobile à l'écran pendant que la fenêtre (et toute la page) glisse par-dessus
+  kaleidoscope();
+  gsap.fromTo(".peek__reel",
+    { y: () => -window.innerHeight },
+    {
+      y: () => document.querySelector(".peek").offsetHeight,
+      ease: "none",
+      scrollTrigger: { trigger: ".peek", start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
+    });
 
   // Manifeste : les mots s'allument au fil du scroll
   SplitText.create(".about__text", {
@@ -90,10 +126,7 @@ function scrollAnimations() {
     scrollTrigger: { trigger: ".about__more", start: "top 85%" },
   });
 
-  // Selected work : la roue (voir src/wheel.js)
-  initWheel(projects);
-
-  // Scroll horizontal épinglé
+  // Selected work : scroll horizontal épinglé
   const track = document.querySelector(".horizontal__track");
   const getDistance = () => track.scrollWidth - window.innerWidth;
   const hTween = gsap.to(track, {
@@ -148,7 +181,7 @@ function scrollAnimations() {
 if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 if (!location.hash) window.scrollTo(0, 0);
 
-renderWheel(projects);
+renderWorkCards(projects);
 initYoutubeTiles();
 initSmoother();
 pageEnter();
@@ -158,7 +191,6 @@ pageEnter();
   bindPageLinks();
   if (reduceMotion) {
     document.querySelector(".loader")?.remove();
-    initWheel(projects, { animate: false });
     return;
   }
   initCursor();

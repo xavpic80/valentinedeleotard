@@ -82,39 +82,6 @@ export const caseStudies = [
     credits: "Creative Direction & Brand Roll-Out: Valentine de Leotard, Goodfood, with a Toronto branding agency",
   },
   {
-    slug: "jus-laitues",
-    brand: "Jus & Laitues",
-    title: "Making a virtual restaurant feel real",
-    category: "Identity",
-    year: "2021",
-    tileColor: "#0F3D2E",
-    tileTextColor: "#B7F5EC",
-    tileImage: "/juslaitues-new/01.jpg",
-    brief:
-      "Jus & Laitue is a delivery-only restaurant concept under the Goodfood brand, bringing fresh salads and smoothies to our members, with no physical storefront.",
-    idea: "**A visual identity built around fresh greens, stylized vegetable forms and an organic graphic language**, giving a dark kitchen a tangible presence.",
-    whatIDid:
-      "**I designed the full brand identity,** extended across food photography, smoothie cups, salad bowls, napkins and delivery packaging.",
-    role: ["Brand Identity", "Packaging Design", "Food Photography Direction", "Creative Direction"],
-    heroImage: "/juslaitues-new/01.jpg",
-    sections: [
-      {
-        tag: "The identity",
-        headline: "Fresh, stylized, organic.",
-        body: "Stylized vegetable forms and an organic graphic language **built a visual shorthand for freshness**, carrying the whole brand with no storefront to lean on.",
-        images: ["/juslaitues-new/02.jpg", "/juslaitues-new/03.jpg", "/juslaitues-new/04.jpg", "/juslaitues-new/05.jpg"],
-      },
-      {
-        tag: "The packaging",
-        headline: "From screen to doorstep.",
-        body: "Cups, bowls, napkins and packaging, built as one seamless experience, **proof a virtual restaurant can feel fully real.**",
-        images: ["/juslaitues-new/06.jpg", "/juslaitues-new/07.jpg", "/juslaitues-new/08.jpg", "/juslaitues-new/09.jpg", "/juslaitues-new/10.jpg"],
-      },
-    ],
-    results: null,
-    credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
-  },
-  {
     slug: "private-label-packaging",
     brand: "Goodfood",
     title: "Building the Private Label from zero",
@@ -203,7 +170,7 @@ export const caseStudies = [
       "I joined DAVIDsTEA as its first in-house marketer and **spent eight years growing from Graphic Designer to Creative Director,** building the brand's internal creative studio from the ground up.",
     idea: "**Every touchpoint had to feel handmade, not corporate:** packaging, campaigns, product design and in-store merchandising, all built in-house instead of farmed out to agencies.",
     whatIDid:
-      "**I led packaging, product and campaign direction across the brand's biggest seasons,** growing the creative team and shipping work for every major holiday and everyday collection along the way.",
+      "**I led packaging, product and campaign direction for every single product and tea drop, not just the big seasons: up to 18 collections a year,** growing the creative team along the way.",
     role: ["Creative Direction", "Packaging Design", "Product Design", "Campaign Direction", "Team Leadership"],
     heroCarousel: [
       "/davidstea-new/carousel-macarons.jpg",
@@ -211,8 +178,7 @@ export const caseStudies = [
       "/davidstea-new/carousel-oasis.jpg",
     ],
     heroCarouselBeatMs: 2500,
-    heroCarouselAspect: "aspect-[7/2]",
-    heroFullBleed: true,
+    heroCarouselAspect: "aspect-[2600/715]", // ratio du visuel le plus large : les côtés ne sont jamais rognés
     sections: [
       {
         bgColor: "#B7F5EC",
@@ -225,6 +191,7 @@ export const caseStudies = [
           attribution: "Luis Borgen, CFO, DAVIDsTEA · Q4 FY2015 earnings call, April 2016",
         },
         image: "/davidstea-new/family-shot.jpg",
+        imageCrop: { aspect: "16 / 9", position: "center bottom" }, // image recadrée : on coupe le haut
       },
       {
         bgColor: "#B7F5EC",
@@ -332,11 +299,6 @@ export const caseStudies = [
         headline: "Everywhere, on purpose.",
         body: "**A distinctive asset only works if it's everywhere**: email, site, social, YouTube, TV. He shows up for Boxing Day, Valentine's, Canada Day, game day, whatever the calendar needs, built with John St., me on both sides of the table.",
         images: [
-          "/richard/email-boxing-day.jpg",
-          "/richard/email-love-to-cook.jpg",
-          "/richard/email-eat-canadian.jpg",
-          "/richard/email-game-day.jpg",
-          "/richard/email-eat-healthier.jpg",
           "/richard/camp-goodfood-kid.jpg",
         ],
         imageGrid: true,
@@ -505,6 +467,64 @@ export const caseStudies = [
     ],
     results: null,
     credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
+  },
+  {
+    slug: "jus-laitues",
+    brand: "Jus & Laitues",
+    title: "Making a virtual restaurant feel real",
+    category: "Identity",
+    year: "2021",
+    tileColor: "#0F3D2E",
+    tileTextColor: "#B7F5EC",
+    tileImage: "/juslaitues-new/01.jpg",
+    brief:
+      "Jus & Laitue is a delivery-only restaurant concept under the Goodfood brand, bringing fresh salads and smoothies to our members, with no physical storefront.",
+    idea: "**A visual identity built around fresh greens, stylized vegetable forms and an organic graphic language**, giving a dark kitchen a tangible presence.",
+    whatIDid:
+      "**I designed the full brand identity,** extended across food photography, smoothie cups, salad bowls, napkins and delivery packaging.",
+    role: ["Brand Identity", "Packaging Design", "Food Photography Direction", "Creative Direction"],
+    heroImage: "/juslaitues-new/01.jpg",
+    sections: [
+      {
+        tag: "The identity",
+        headline: "Fresh, stylized, organic.",
+        body: "Stylized vegetable forms and an organic graphic language **built a visual shorthand for freshness**, carrying the whole brand with no storefront to lean on.",
+        images: ["/juslaitues-new/02.jpg", "/juslaitues-new/03.jpg", "/juslaitues-new/04.jpg", "/juslaitues-new/05.jpg"],
+      },
+      {
+        tag: "The packaging",
+        headline: "From screen to doorstep.",
+        body: "Cups, bowls, napkins and packaging, built as one seamless experience, **proof a virtual restaurant can feel fully real.**",
+        images: ["/juslaitues-new/06.jpg", "/juslaitues-new/07.jpg", "/juslaitues-new/08.jpg", "/juslaitues-new/09.jpg", "/juslaitues-new/10.jpg"],
+      },
+    ],
+    results: null,
+    credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
+  },
+  {
+    slug: "food-photography",
+    brand: "Food Photography",
+    title: "Food photo & art direction",
+    category: "Photo Art Direction",
+    year: "Goodfood",
+    tileImage: "/projects/foodphoto/HolidayDinner.jpg",
+    brief:
+      "Selected recipe and product photography shot under my art direction, **styling, lighting and composition built for both editorial warmth and e-commerce clarity.**",
+    role: ["Photo Art Direction", "Food Styling Direction", "Creative Direction"],
+    heroImage: "/projects/foodphoto/HolidayDinner.jpg",
+    sections: [
+      {
+        tag: "Recipes",
+        images: [
+          "/projects/foodphoto/gnocchi.jpg",
+          "/projects/foodphoto/thai-curry.jpg",
+          "/projects/foodphoto/thai-bbq-chicken.jpg",
+          "/projects/foodphoto/spiced-chicken.jpg",
+        ],
+      },
+    ],
+    results: null,
+    credits: "Photo Art Direction: Valentine de Leotard, for Goodfood",
   },
 ]
 

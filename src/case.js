@@ -43,7 +43,11 @@ function sectionMedia(s) {
       title="${s.headline || cs.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
   }
   if (s.videoFile) html += mediaItem(s.videoFile, "media--full");
-  if (s.image) html += mediaItem(s.image, "media--full");
+  if (s.image && s.imageCrop) {
+    // Image recadrée dans un format donné (imageCrop.aspect), en gardant la partie indiquée (imageCrop.position)
+    const { aspect = "16 / 9", position = "center" } = s.imageCrop;
+    html += `<div class="media media--crop" style="aspect-ratio:${aspect}"><img src="${s.image}" alt="${cs.brand}" loading="lazy" style="object-position:${position}" /></div>`;
+  } else if (s.image) html += mediaItem(s.image, "media--full");
   if (s.imageColumns) {
     html += `<div class="cs-columns">${s.imageColumns
       .map((col) => `<div class="cs-columns__col">${col.map((m) => mediaItem(m)).join("")}</div>`)
@@ -86,7 +90,8 @@ function renderHero() {
   if (cs.heroCarousel) {
     const ratio = cs.heroCarouselAspect?.match(/\[(\d+)\/(\d+)\]/);
     const style = ratio ? ` style="aspect-ratio:${ratio[1]}/${ratio[2]}"` : "";
-    return `<div class="cs-hero__media ${cs.heroFullBleed ? "is-bleed" : ""} media--slideshow" data-slideshow${style}>
+    // Format imposé (heroCarouselAspect) : image entière en largeur, sans marge de parallaxe
+    return `<div class="cs-hero__media ${cs.heroFullBleed ? "is-bleed" : ""} ${ratio ? "is-fixed" : ""} media--slideshow" data-slideshow${style}>
       ${cs.heroCarousel.map((src) => `<img src="${src}" alt="${cs.brand}" />`).join("")}</div>`;
   }
   const src = cs.heroImage || cs.tileImage;
@@ -122,17 +127,27 @@ function renderBehindTheBox() {
   </section>`;
 }
 
-function renderResults() {
+// Highlights : bande pleine largeur, placée juste après l'intro (brief / idée / rôle)
+function renderHighlights() {
+  const r = cs.results;
+  if (!r || (!r.items && !r.stat && !r.description)) return "";
+  // Avec une image (results.image) : texte à gauche, image à droite, dans la même bande
+  return `<section class="cs-results${r.image ? " has-image" : ""}">
+    <div class="cs-results__body">
+      <p class="section-label">${r.label || "Highlights"}</p>
+      ${r.stat ? `<div class="cs-results__stat"><p class="cs-stat"><span data-count>${r.stat}</span></p><p class="cs-stat__label">${r.statLabel || ""}</p></div>` : ""}
+      ${r.description ? `<p class="cs-results__desc">${inline(r.description)}</p>` : ""}
+      ${r.items ? `<ul class="cs-results__list">${r.items.map((it, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${inline(it)}</p></li>`).join("")}</ul>` : ""}
+    </div>
+    ${r.image ? `<div class="cs-results__img media"><img src="${r.image}" alt="" loading="lazy" /></div>` : ""}
+  </section>`;
+}
+
+// Fin de page : l'équipe
+function renderOutro() {
   const r = cs.results;
   if (!r) return "";
-  return `<section class="cs-results">
-    <p class="section-label">${r.label || "Results"}</p>
-    ${r.stat ? `<p class="cs-stat"><span data-count>${r.stat}</span></p><p class="cs-stat__label">${r.statLabel || ""}</p>` : ""}
-    ${r.description ? `<p class="cs-results__desc">${inline(r.description)}</p>` : ""}
-    ${r.items ? `<ul class="cs-results__list">${r.items.map((it, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span>${inline(it)}</li>`).join("")}</ul>` : ""}
-    ${r.image ? `<div class="media media--full cs-results__img"><img src="${r.image}" alt="" loading="lazy" /></div>` : ""}
-    ${r.team ? `<div class="cs-team"><p class="section-label">The team</p><dl>${r.team.map((m) => `<div><dt>${m.role}</dt><dd>${m.names}</dd></div>`).join("")}</dl></div>` : ""}
-  </section>`;
+  return `${r.team ? `<section class="cs-team"><p class="section-label">The team</p><dl>${r.team.map((m) => `<div><dt>${m.role}</dt><dd>${m.names}</dd></div>`).join("")}</dl></section>` : ""}`;
 }
 
 function renderNext() {
@@ -159,9 +174,10 @@ function render() {
       ${renderHero()}
     </section>
     ${renderIntro()}
+    ${renderHighlights()}
     ${(cs.sections || []).map(renderSection).join("")}
     ${renderBehindTheBox()}
-    ${renderResults()}
+    ${renderOutro()}
     ${cs.credits ? `<p class="cs-credits">${cs.credits}</p>` : ""}
     ${renderNext()}
   `;
@@ -173,6 +189,7 @@ function render() {
 function slideshows() {
   document.querySelectorAll("[data-slideshow]").forEach((box) => {
     const imgs = box.querySelectorAll("img");
+    const fixed = box.classList.contains("is-fixed");
     if (imgs.length < 2) return;
     gsap.set(imgs, { opacity: 0 });
     gsap.set(imgs[0], { opacity: 1 });
@@ -181,7 +198,8 @@ function slideshows() {
     imgs.forEach((img, i) => {
       const next = imgs[(i + 1) % imgs.length];
       tl.to(img, { opacity: 0, duration: 0.8, ease: "power2.inOut" }, `+=${beat}`)
-        .fromTo(next, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, "<");
+        // Léger zoom à l'arrivée, sauf pour un hero au format imposé (sinon les côtés seraient rognés)
+        .fromTo(next, { opacity: 0, scale: fixed ? 1 : 1.06 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, "<");
     });
   });
 }
@@ -215,7 +233,7 @@ function intro() {
     .from(chars, { yPercent: 110, duration: 1.2, stagger: 0.015 })
     .from(".cs-hero__eyebrow span, .cs-back", { y: 20, opacity: 0, duration: 1, stagger: 0.08 }, 0.2)
     .from(".cs-hero__media", { clipPath: "inset(100% 0 0 0)", duration: 1.5, ease: EASE_INOUT }, 0.3)
-    .from(".cs-hero__media img", { scale: 1.3, duration: 2 }, 0.4);
+    .from(".cs-hero__media:not(.is-fixed) img", { scale: 1.3, duration: 2 }, 0.4);
 }
 
 function scrollAnimations() {
@@ -242,7 +260,7 @@ function scrollAnimations() {
   });
 
   // Parallaxe douce sur l'image du hero
-  gsap.to(".cs-hero__media img", {
+  gsap.to(".cs-hero__media:not(.is-fixed) img", {
     yPercent: 10, ease: "none",
     scrollTrigger: { trigger: ".cs-hero__media", start: "top top", end: "bottom top", scrub: true },
   });

@@ -52,6 +52,26 @@
           </div>
         </section>
 
+        <!-- FENÊTRE REEL : le reel reste immobile pendant que la page défile par-dessus -->
+        <section class="peek" aria-hidden="true">
+          <!-- Kaleidoscope reel : les visuels s'enchaînent toutes les secondes, en fondu flou -->
+          <div class="peek__reel">
+            <img src="/kaleido2/00.jpg" alt="" />
+            <img src="/kaleido2/01.jpg" alt="" />
+            <img src="/kaleido2/02.jpg" alt="" />
+            <img src="/kaleido2/03.jpg" alt="" />
+            <img src="/kaleido2/04.jpg" alt="" />
+            <img src="/kaleido2/05.jpg" alt="" />
+            <img src="/kaleido2/06.jpg" alt="" />
+            <img src="/kaleido2/07.jpg" alt="" />
+            <img src="/kaleido2/08.gif" alt="" />
+            <img src="/kaleido2/09.jpg" alt="" />
+            <img src="/kaleido2/10.gif" alt="" />
+            <img src="/kaleido2/11.jpg" alt="" />
+            <img src="/kaleido2/12.jpg" alt="" />
+          </div>
+        </section>
+
         <!-- ABOUT -->
         <section class="about" id="about">
           <p class="about__label">(01) — In a nutshell</p>
@@ -71,43 +91,16 @@
           </div>
         </section>
 
-        <!-- SELECTED WORK (rempli depuis src/data/caseStudies.js) -->
-        <section class="work" id="work">
-          <div class="work__head">
-            <p class="section-label">(02) — Selected projects</p>
-            <h2 class="section-title">Selected <em>work</em></h2>
-          </div>
-        </section>
-
-        <!-- La roue des projets (remplie par src/wheel.js) -->
-        <section class="wheel" aria-label="Selected work">
-          <div class="wheel__stage">
-            <div class="wheel__ring"></div>
-            <div class="wheel__caption">
-              <p class="wheel__count">01 / 07</p>
-              <div class="wheel__mask"><a class="wheel__title" href="#" data-transition data-cursor="View"></a></div>
-              <div class="wheel__mask"><p class="wheel__sub"></p></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- HORIZONTAL SCROLL -->
-        <section class="horizontal">
+        <!-- SELECTED WORK : scroll horizontal épinglé (cartes ajoutées par src/work-cards.js) -->
+        <section class="horizontal" id="work">
           <div class="horizontal__track">
             <div class="horizontal__intro">
-              <p class="section-label">(03) — Behind the lens</p>
-              <h2 class="section-title">Food <em>photo</em><br />&amp; art direction</h2>
+              <p class="section-label">(02) — Selected projects</p>
+              <h2 class="section-title"><em>Selected</em> work</h2>
               <p class="horizontal__desc">
-                Recipe and product photography shot under my art direction, styling, lighting and composition built for
-                both editorial warmth and e-commerce clarity.
+                Brands, campaigns, packaging and photography: a few projects I led from the first idea to the shelf.
               </p>
             </div>
-            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/gnocchi.jpg" alt="Gnocchi" loading="lazy" /></div><p>Gnocchi — Goodfood</p></div>
-            <div class="h-card h-card--tall"><div class="ph ph--filled"><img src="/projects/foodphoto/thai-curry.jpg" alt="Thai curry" loading="lazy" /></div><p>Thai curry — Goodfood</p></div>
-            <div class="h-card h-card--wide"><div class="ph ph--filled"><img src="/projects/foodphoto/HolidayDinner.jpg" alt="Holiday dinner" loading="lazy" /></div><p>Holiday dinner — Goodfood</p></div>
-            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/thai-bbq-chicken.jpg" alt="Thai BBQ chicken" loading="lazy" /></div><p>Thai BBQ chicken — Goodfood</p></div>
-            <div class="h-card h-card--tall"><div class="ph ph--filled"><img src="/1_Macaron_2016_Mood.jpg" alt="Macarons mood" loading="lazy" /></div><p>Macarons — DAVIDsTEA</p></div>
-            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/spiced-chicken.jpg" alt="Spiced chicken" loading="lazy" /></div><p>Spiced chicken — Goodfood</p></div>
           </div>
         </section>
 
@@ -122,7 +115,7 @@
 
         <!-- SERVICES -->
         <section class="services">
-          <p class="section-label">(04) — Expertise</p>
+          <p class="section-label">(03) — Expertise</p>
           <ul class="services__list">
             <li><span>01</span><h3>Creative direction</h3><p>Building creative studios from the ground up and leading teams of 25+ creatives.</p></li>
             <li><span>02</span><h3>Packaging</h3><p>Nearly 4,000 SKUs designed with my team, 900+ by my own hand, concept to print in 48 hours.</p></li>
@@ -133,7 +126,7 @@
 
         <!-- CONTACT -->
         <footer class="contact" id="contact">
-          <p class="section-label">(05) — Contact</p>
+          <p class="section-label">(04) — Contact</p>
           <a href="mailto:valentine.picquerey@gmail.com" class="contact__big" data-cursor="Email">
             <span class="line">Let's work</span>
             <span class="line line--italic">together</span>
