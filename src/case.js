@@ -1,6 +1,6 @@
 import {
   gsap, ScrollTrigger, SplitText, reduceMotion, isTouch, EASE_OUT, EASE_INOUT,
-  caseUrl, rich, inline, initSmoother, initCursor, bindPageLinks, pageEnter,
+  caseUrl, rich, inline, initSmoother, smoother, initCursor, bindPageLinks, pageEnter,
   revealTitles, revealLabels, revealFade, revealMedia, contactReveal, refreshOnImages,
 } from "./common.js";
 import { caseStudies } from "./data/caseStudies.js";
@@ -53,7 +53,19 @@ function sectionMedia(s) {
       .map((col) => `<div class="cs-columns__col">${col.map((m) => mediaItem(m)).join("")}</div>`)
       .join("")}</div>`;
   }
-  if (s.images) {
+  if (s.images && s.gallery) {
+    // Galerie horizontale épinglée (même mécanique que Selected work) ; chaque carte s'ouvre en grand au clic
+    html += `<div class="cs-gallery"><div class="cs-gallery__track">${s.images
+      .map((m) => {
+        const list = typeof m === "string" ? [m] : m.images;
+        const alt = (typeof m === "object" && m.alt) || cs.brand;
+        const inner = list.length > 1
+          ? `<div class="media--slideshow" data-slideshow>${list.map((src) => `<img src="${src}" alt="${alt}" loading="lazy" />`).join("")}</div>`
+          : `<img src="${list[0]}" alt="${alt}" loading="lazy" />`;
+        return `<button type="button" class="cs-gallery__card" data-zoom data-cursor="Zoom">${inner}</button>`;
+      })
+      .join("")}</div></div>`;
+  } else if (s.images) {
     if (s.imageCarousel) {
       html += `<div class="cs-strip" data-strip><div class="cs-strip__track">${s.images
         .map((m) => mediaItem(m, "cs-strip__item"))
@@ -81,7 +93,7 @@ function sectionText(s) {
 function renderSection(s, i) {
   const text = sectionText(s);
   const media = sectionMedia(s);
-  return `<section class="cs-section" data-index="${i}">
+  return `<section class="cs-section${s.gallery ? " cs-section--gallery" : ""}" data-index="${i}">
     ${s.textBelow ? media + text : text + media}
   </section>`;
 }
@@ -96,7 +108,10 @@ function renderHero() {
   }
   const src = cs.heroImage || cs.tileImage;
   const pos = cs.heroObjectPosition === "object-left-top" ? ' style="object-position:left top"' : "";
-  return `<div class="cs-hero__media ${cs.heroFullBleed ? "is-bleed" : ""}"><img src="${src}" alt="${cs.brand}"${pos} /></div>`;
+  // Format imposé (heroAspect, ex. "aspect-[3000/750]") : image entière, sans rognage ni parallaxe
+  const ratio = cs.heroAspect?.match(/\[(\d+)\/(\d+)\]/);
+  const style = ratio ? ` style="aspect-ratio:${ratio[1]}/${ratio[2]}"` : "";
+  return `<div class="cs-hero__media ${cs.heroFullBleed ? "is-bleed" : ""} ${ratio ? "is-fixed" : ""}"${style}><img src="${src}" alt="${cs.brand}"${pos} /></div>`;
 }
 
 function renderIntro() {
@@ -174,8 +189,9 @@ function render() {
       ${renderHero()}
     </section>
     ${renderIntro()}
+    ${(cs.sections || []).map((sec, i) => (sec.beforeHighlights ? renderSection(sec, i) : "")).join("")}
     ${renderHighlights()}
-    ${(cs.sections || []).map(renderSection).join("")}
+    ${(cs.sections || []).map((sec, i) => (sec.beforeHighlights ? "" : renderSection(sec, i))).join("")}
     ${renderBehindTheBox()}
     ${renderOutro()}
     ${cs.credits ? `<p class="cs-credits">${cs.credits}</p>` : ""}
@@ -225,6 +241,100 @@ function strips() {
       scrollTrigger: { trigger: strip, start: "top 85%" },
     });
   });
+}
+
+// Galeries horizontales : la section reste fixe et les cartes défilent de droite à gauche
+function galleries() {
+  document.querySelectorAll(".cs-gallery").forEach((gallery) => {
+    const track = gallery.querySelector(".cs-gallery__track");
+    const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    const tween = gsap.to(track, {
+      x: () => -distance(),
+      ease: "none",
+      scrollTrigger: {
+        trigger: gallery,
+        start: "center center",
+        end: () => "+=" + distance(),
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+    gsap.utils.toArray(".cs-gallery__card", gallery).forEach((card) => {
+      gsap.from(card, {
+        rotate: 4, yPercent: 15, opacity: 0.3, ease: "none",
+        scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 100%", end: "left 60%", scrub: true },
+      });
+      // Survol : toute la carte grandit de 30 % et passe devant ses voisines
+      if (!isTouch) {
+        card.addEventListener("mouseenter", () => {
+          card.classList.add("is-hover");
+          gsap.to(card, { scale: 1.3, duration: 0.6, ease: EASE_OUT, overwrite: "auto" });
+        });
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, { scale: 1, duration: 0.6, ease: EASE_OUT, overwrite: "auto", onComplete: () => card.classList.remove("is-hover") });
+        });
+      }
+    });
+  });
+}
+
+// Zoom : l'image grandit depuis sa carte jusqu'au plein écran, entière (sans rognage)
+function lightbox() {
+  const cards = document.querySelectorAll("[data-zoom]");
+  if (!cards.length) return;
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.innerHTML = `<div class="lightbox__bg"></div><img class="lightbox__img" alt="" /><button type="button" class="lightbox__close" aria-label="Close">✕</button>`;
+  document.body.appendChild(box);
+  const bg = box.querySelector(".lightbox__bg");
+  const img = box.querySelector(".lightbox__img");
+  let from = null;
+
+  const target = () => {
+    // Plus grande taille qui tient dans 90 % de l'écran, au ratio réel de l'image
+    const maxW = window.innerWidth * 0.9, maxH = window.innerHeight * 0.88;
+    const k = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight);
+    const w = img.naturalWidth * k, h = img.naturalHeight * k;
+    return { left: (window.innerWidth - w) / 2, top: (window.innerHeight - h) / 2, width: w, height: h };
+  };
+
+  let current = null;
+  const open = (card) => {
+    current = card;
+    // Pour une carte diaporama, on ouvre l'image affichée à ce moment-là
+    const imgs = [...card.querySelectorAll("img")];
+    const shown = imgs.find((i) => +getComputedStyle(i).opacity > 0.5) || imgs[0];
+    from = card.getBoundingClientRect();
+    img.src = shown.currentSrc || shown.src;
+    img.alt = shown.alt;
+    const go = () => {
+      box.classList.add("is-open");
+      smoother?.paused(true);
+      gsap.set(img, { left: from.left, top: from.top, width: from.width, height: from.height, borderRadius: 10 });
+      gsap.to(bg, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      gsap.to(img, { ...target(), borderRadius: 4, duration: 0.8, ease: EASE_INOUT });
+      gsap.fromTo(".lightbox__close", { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 0.5 });
+    };
+    img.complete && img.naturalWidth ? go() : img.addEventListener("load", go, { once: true });
+  };
+
+  const close = () => {
+    if (!box.classList.contains("is-open")) return;
+    gsap.to(".lightbox__close", { opacity: 0, duration: 0.2 });
+    gsap.to(bg, { opacity: 0, duration: 0.6, ease: "power2.inOut" });
+    // On revient vers la carte telle qu'elle est maintenant (elle a pu reprendre sa taille normale)
+    const back = current ? current.getBoundingClientRect() : from;
+    gsap.to(img, {
+      left: back.left, top: back.top, width: back.width, height: back.height, borderRadius: 10,
+      duration: 0.7, ease: EASE_INOUT,
+      onComplete: () => { box.classList.remove("is-open"); smoother?.paused(false); },
+    });
+  };
+
+  cards.forEach((card) => card.addEventListener("click", () => open(card)));
+  box.addEventListener("click", close);
+  window.addEventListener("keydown", (e) => e.key === "Escape" && close());
 }
 
 function intro() {
@@ -291,6 +401,8 @@ if (cs) {
     initCursor();
     slideshows();
     strips();
+    galleries();
+    lightbox();
     intro();
     scrollAnimations();
     refreshOnImages();

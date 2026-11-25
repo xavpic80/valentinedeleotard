@@ -71,8 +71,8 @@ function heroIntro() {
 /* ------------------------------------------------------------------ */
 /*  Kaleidoscope reel : un visuel par seconde, fondu enchaîné avec flou  */
 /* ------------------------------------------------------------------ */
-const REEL_BEAT = 1; // secondes par visuel
-const REEL_FADE = 0.45; // durée du fondu
+const REEL_BEAT = 0.6; // secondes par visuel
+const REEL_FADE = 0.3; // durée du fondu
 
 function kaleidoscope() {
   const imgs = gsap.utils.toArray(".peek__reel img");
@@ -103,10 +103,11 @@ function scrollAnimations() {
   // Fenêtre reel : on décale le reel exactement à l'inverse du scroll, il reste donc
   // immobile à l'écran pendant que la fenêtre (et toute la page) glisse par-dessus
   kaleidoscope();
+  // Le reel (70vh de haut) reste à 15vh du haut de l'écran : centré verticalement
   gsap.fromTo(".peek__reel",
-    { y: () => -window.innerHeight },
+    { y: () => window.innerHeight * 0.15 - window.innerHeight },
     {
-      y: () => document.querySelector(".peek").offsetHeight,
+      y: () => window.innerHeight * 0.15 + document.querySelector(".peek").offsetHeight,
       ease: "none",
       scrollTrigger: { trigger: ".peek", start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
     });

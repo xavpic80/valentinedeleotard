@@ -98,41 +98,40 @@ export const caseStudies = [
       "**We've designed nearly 4,000 SKUs, I personally designed over 900,** leading a team of 10 designers at a pace of 40 packages a week, concept to print in 48 hours.",
     role: ["Creative Direction", "Packaging Design", "Studio Build-Out", "Art Direction", "Team Leadership"],
     heroImage: "/private-label/hero-packaging-band.jpg",
-    heroFullBleed: true,
+    heroAspect: "aspect-[3000/750]", // ratio réel de l'image : rien n'est rogné
     sections: [
       {
         tag: "The system",
         headline: "One system, every aisle.",
         body: "Sauces, spreads, snacks, drinks and dessert, nearly 4,000 SKUs that had to feel like one family. **Playful enough to stand alone, disciplined enough to read as Goodfood side by side.**",
-        imageColumns: [
-          [
-            "/private-label/sec-bbqsauce.jpg",
-            "/private-label/sec-tuna-v2.jpg",
-            "/private-label/sec-coconut.jpg",
-            "/private-label/sec-gum.jpg",
-            "/private-label/sec-chips.jpg",
-            "/private-label/sec-icedream.jpg",
-            {
-              images: [
-                "/private-label/yogurt-strawberry.jpg",
-                "/private-label/yogurt-lemon.jpg",
-                "/private-label/yogurt-vanilla.jpg",
-              ],
-              alt: "Yogurt flavours",
-              aspect: "aspect-[3/4]",
-            },
-          ],
-          [
-            "/private-label/sec-jam.jpg",
-            "/private-label/sec-nutsseeds.jpg",
-            "/private-label/sec-cakes.jpg",
-            "/private-label/sec-chocolatebar.jpg",
-            "/private-label/sec-matcha.jpg",
-            "/private-label/sec-mints.jpg",
-            "/private-label/sec-sparkling.jpg",
-            "/private-label/sec-popsicles.jpg",
-            "/private-label/sec-smores.jpg",
-          ],
+        // Galerie horizontale (comme Selected work sur la home) ; clic sur une image = zoom
+        gallery: true,
+        textBelow: true, // la galerie d'abord, le texte ensuite
+        beforeHighlights: true, // section placée avant la bande des highlights
+        images: [
+          "/private-label/sec-bbqsauce.jpg",
+          "/private-label/sec-jam.jpg",
+          "/private-label/sec-tuna-v2.jpg",
+          "/private-label/sec-nutsseeds.jpg",
+          "/private-label/sec-coconut.jpg",
+          "/private-label/sec-cakes.jpg",
+          "/private-label/sec-gum.jpg",
+          "/private-label/sec-chocolatebar.jpg",
+          "/private-label/sec-chips.jpg",
+          "/private-label/sec-matcha.jpg",
+          "/private-label/sec-icedream.jpg",
+          "/private-label/sec-mints.jpg",
+          {
+            images: [
+              "/private-label/yogurt-strawberry.jpg",
+              "/private-label/yogurt-lemon.jpg",
+              "/private-label/yogurt-vanilla.jpg",
+            ],
+            alt: "Yogurt flavours",
+          },
+          "/private-label/sec-sparkling.jpg",
+          "/private-label/sec-popsicles.jpg",
+          "/private-label/sec-smores.jpg",
         ],
       },
     ],

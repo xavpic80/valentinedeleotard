@@ -255,3 +255,35 @@
 @media (max-width: 900px) {
   .cs-results.has-image { grid-template-columns: 1fr; }
 }
+
+/* ---------- Galerie horizontale (section "gallery: true") ---------- */
+/* Hauteur = celle des cartes : pas de grand vide autour ; épinglée centrée à l'écran pendant le défilement */
+.cs-gallery { overflow-x: clip; overflow-y: visible; margin: 0 calc(var(--pad) * -1); padding: 2rem 0; }
+.cs-section--gallery { padding-top: 4vh; }
+.cs-gallery__track { display: flex; gap: 1.5rem; padding: 0 var(--pad); width: max-content; }
+.cs-gallery__card {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(220px, 24vw, 360px);
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f2f2f0;
+  cursor: zoom-in;
+}
+.cs-gallery__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cs-gallery__card.is-hover { z-index: 5; }
+.cs-gallery__card .media--slideshow { position: absolute; inset: 0; }
+
+/* ---------- Zoom plein écran ---------- */
+.lightbox { position: fixed; inset: 0; z-index: 97; display: none; cursor: zoom-out; }
+.lightbox.is-open { display: block; }
+.lightbox__bg { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.96); opacity: 0; }
+.lightbox__img { position: fixed; object-fit: cover; box-shadow: 0 30px 80px rgba(20, 20, 19, 0.15); }
+.lightbox__close {
+  all: unset;
+  position: fixed; top: 1.4rem; right: var(--pad);
+  font-size: 1.4rem; color: var(--ink); cursor: pointer; opacity: 0;
+}
