@@ -1,7 +1,14 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { resolve } from "node:path";
+import { defineConfig } from "vite";
 
-// https://vite.dev/config/
+// Deux pages : la home et le gabarit de case study (case.html?slug=...)
 export default defineConfig({
-  plugins: [react()],
-})
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(import.meta.dirname, "index.html"),
+        case: resolve(import.meta.dirname, "case.html"),
+      },
+    },
+  },
+});

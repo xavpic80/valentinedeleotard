@@ -1,5 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "redirects": [
+    { "source": "/work/:slug", "destination": "/case.html?slug=:slug", "permanent": false },
+    { "source": "/about", "destination": "/#about", "permanent": false },
+    { "source": "/projects/:slug", "destination": "/#work", "permanent": false }
   ]
 }

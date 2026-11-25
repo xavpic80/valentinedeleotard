@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case study — Valentine de Léotard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/case.css" />
+  </head>
+  <body class="page-case">
+    <div class="curtain" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"><span class="cursor__label">View</span></div>
+
+    <header class="nav">
+      <a href="/" class="nav__logo" data-transition>VDL</a>
+      <nav class="nav__links">
+        <a href="/#work" class="magnetic" data-transition>Work</a>
+        <a href="/#about" class="magnetic" data-transition>About</a>
+        <a href="#contact" class="magnetic">Contact</a>
+      </nav>
+    </header>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main id="case"></main>
+
+        <footer class="contact" id="contact">
+          <p class="section-label">Contact</p>
+          <a href="mailto:valentine.picquerey@gmail.com" class="contact__big" data-cursor="Email">
+            <span class="line">Let's work</span>
+            <span class="line line--italic">together</span>
+          </a>
+          <div class="contact__bottom">
+            <span>© 2026 Valentine de Léotard</span>
+            <div class="contact__socials">
+              <a href="mailto:valentine.picquerey@gmail.com" class="magnetic">valentine.picquerey@gmail.com</a>
+              <a href="https://www.linkedin.com/in/valentinedeleotard/" class="magnetic" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+            <a href="#" class="back-top magnetic">Back to top ↑</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script type="module" src="/src/case.js"></script>
+  </body>
+</html>

@@ -3,10 +3,142 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Valentine de Leotard · Senior Creative Director</title>
+    <title>Valentine de Léotard — Creative Director</title>
+    <meta name="description" content="Hands-on Creative Director working in CPG, retail & challenger brands. Montreal." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Loader -->
+    <div class="loader" aria-hidden="true">
+      <div class="loader__count"><span class="loader__num">0</span><span class="loader__pct">%</span></div>
+      <div class="loader__bar"><span></span></div>
+    </div>
+
+    <!-- Rideau de transition entre pages -->
+    <div class="curtain curtain--open" aria-hidden="true"></div>
+
+    <div class="cursor" aria-hidden="true"><span class="cursor__label">View</span></div>
+
+    <header class="nav">
+      <a href="#" class="nav__logo">VDL</a>
+      <nav class="nav__links">
+        <a href="#work" class="magnetic">Work</a>
+        <a href="#about" class="magnetic">About</a>
+        <a href="#contact" class="magnetic">Contact</a>
+      </nav>
+    </header>
+
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <!-- HERO -->
+        <section class="hero">
+          <p class="hero__eyebrow"><span>Creative director</span><span>Montreal · CPG, retail &amp; challenger brands</span></p>
+          <h1 class="hero__title">
+            <span class="line">Valentine</span>
+            <span class="line line--italic">de Léotard</span>
+          </h1>
+          <div class="hero__media">
+            <div class="ph ph--filled" data-speed="0.85"><img src="/about/Valentine.jpg" alt="Valentine de Léotard" style="object-position: 50% 25%" /></div>
+          </div>
+          <div class="hero__bottom">
+            <p class="hero__intro">Hands-on Creative Director working in CPG, retail &amp; challenger brands.</p>
+            <div class="hero__scroll"><span>Scroll</span><i></i></div>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about" id="about">
+          <p class="about__label">(01) — In a nutshell</p>
+          <p class="about__text">
+            Two decades building brands, campaigns and teams across Canada and <em>Europe</em>. From packaging and
+            product to campaigns, digital and brand identity, I make work that makes people stop scrolling, smile, or
+            suddenly feel <em>hungry</em>.
+          </p>
+          <div class="about__more">
+            <p>
+              Parisian-born and Parisian-raised, which basically means I have opinions about bread and typography. I
+              began my career in advertising at M&amp;C Saatchi, moved to Canada in 2010, and spent the next years
+              shaping brands like DAVIDsTEA and Goodfood, <strong>building creative studios from the ground up and
+              leading teams of 25+ creatives.</strong>
+            </p>
+            <p>And yes, I take creativity seriously. Myself? Not always.</p>
+          </div>
+        </section>
+
+        <!-- SELECTED WORK (rempli depuis src/data/caseStudies.js) -->
+        <section class="work" id="work">
+          <div class="work__head">
+            <p class="section-label">(02) — Selected projects</p>
+            <h2 class="section-title">Selected <em>work</em></h2>
+          </div>
+          <div class="work__grid"></div>
+        </section>
+
+        <!-- HORIZONTAL SCROLL -->
+        <section class="horizontal">
+          <div class="horizontal__track">
+            <div class="horizontal__intro">
+              <p class="section-label">(03) — Behind the lens</p>
+              <h2 class="section-title">Food <em>photo</em><br />&amp; art direction</h2>
+              <p class="horizontal__desc">
+                Recipe and product photography shot under my art direction, styling, lighting and composition built for
+                both editorial warmth and e-commerce clarity.
+              </p>
+            </div>
+            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/gnocchi.jpg" alt="Gnocchi" loading="lazy" /></div><p>Gnocchi — Goodfood</p></div>
+            <div class="h-card h-card--tall"><div class="ph ph--filled"><img src="/projects/foodphoto/thai-curry.jpg" alt="Thai curry" loading="lazy" /></div><p>Thai curry — Goodfood</p></div>
+            <div class="h-card h-card--wide"><div class="ph ph--filled"><img src="/projects/foodphoto/HolidayDinner.jpg" alt="Holiday dinner" loading="lazy" /></div><p>Holiday dinner — Goodfood</p></div>
+            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/thai-bbq-chicken.jpg" alt="Thai BBQ chicken" loading="lazy" /></div><p>Thai BBQ chicken — Goodfood</p></div>
+            <div class="h-card h-card--tall"><div class="ph ph--filled"><img src="/1_Macaron_2016_Mood.jpg" alt="Macarons mood" loading="lazy" /></div><p>Macarons — DAVIDsTEA</p></div>
+            <div class="h-card"><div class="ph ph--filled"><img src="/projects/foodphoto/spiced-chicken.jpg" alt="Spiced chicken" loading="lazy" /></div><p>Spiced chicken — Goodfood</p></div>
+          </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <section class="marquee" aria-label="Services">
+          <div class="marquee__row">
+            <div class="marquee__inner">
+              <span>Creative direction</span><i>✦</i><span><em>Packaging</em></span><i>✦</i><span>Branding</span><i>✦</i><span><em>Campaigns</em></span><i>✦</i><span>Photography</span><i>✦</i>
+            </div>
+          </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="services">
+          <p class="section-label">(04) — Expertise</p>
+          <ul class="services__list">
+            <li><span>01</span><h3>Creative direction</h3><p>Building creative studios from the ground up and leading teams of 25+ creatives.</p></li>
+            <li><span>02</span><h3>Packaging</h3><p>Nearly 4,000 SKUs designed with my team, 900+ by my own hand, concept to print in 48 hours.</p></li>
+            <li><span>03</span><h3>Brand identity</h3><p>From a full category-disrupting rebrand to dark-kitchen restaurants built from scratch.</p></li>
+            <li><span>04</span><h3>Campaigns &amp; content</h3><p>Distinctive brand assets, documentary series and campaigns, from TV to the inbox.</p></li>
+          </ul>
+        </section>
+
+        <!-- CONTACT -->
+        <footer class="contact" id="contact">
+          <p class="section-label">(05) — Contact</p>
+          <a href="mailto:valentine.picquerey@gmail.com" class="contact__big" data-cursor="Email">
+            <span class="line">Let's work</span>
+            <span class="line line--italic">together</span>
+          </a>
+          <div class="contact__bottom">
+            <span>© 2026 Valentine de Léotard</span>
+            <div class="contact__socials">
+              <a href="mailto:valentine.picquerey@gmail.com" class="magnetic">valentine.picquerey@gmail.com</a>
+              <a href="https://www.linkedin.com/in/valentinedeleotard/" class="magnetic" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+            <a href="#" class="back-top magnetic">Back to top ↑</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
