@@ -209,7 +209,7 @@ ul { list-style: none; }
 .marquee__inner i { font-style: normal; font-size: 0.4em; }
 
 /* ---------- Services ---------- */
-.services { padding: 20vh var(--pad); }
+.services { padding: 8vh var(--pad) 20vh; } /* moins d'espace sous la galerie */
 .services__list li {
   display: grid;
   grid-template-columns: 4rem 1fr 1fr;
@@ -233,11 +233,11 @@ ul { list-style: none; }
 }
 .contact .section-label { color: rgba(255, 255, 255, 0.5); }
 .contact__big {
-  font-size: clamp(4rem, 14vw, 15rem);
+  font-size: clamp(3.5rem, 11.5vw, 12.5rem); /* un peu plus petit : le g ne touche plus la bande */
   line-height: 1.02;
   letter-spacing: -0.05em;
   display: inline-block;
-  margin: auto 0;
+  margin: auto 0 6vh;
   align-self: flex-start;
 }
 .contact__big .line--italic { padding-left: 10vw; }
@@ -366,3 +366,12 @@ h1, h2, h3, h4 { text-wrap: balance; }
 /* Légendes des cartes : la catégorie ne se coupe jamais ; si elle ne tient pas, elle passe entière à la ligne */
 .h-card p { flex-wrap: wrap; row-gap: 0.2rem; }
 .h-card p em { white-space: nowrap; }
+
+/* Bande des expertises dans le bloc contact : plus fine, bord à bord, sur fond noir */
+.contact .marquee {
+  margin: 0 calc(var(--pad) * -1);
+  padding: 2.2vh 0;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.contact .marquee__inner { font-size: clamp(1.4rem, 3vw, 2.8rem); gap: 2vw; padding-right: 2vw; letter-spacing: -0.03em; }
+.contact .marquee + .contact__bottom { border-top: none; }
