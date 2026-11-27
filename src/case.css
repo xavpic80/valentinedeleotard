@@ -180,7 +180,7 @@
   padding-top: 1.2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-.cs-results__list li span {
+.cs-results__list li > span {
   display: block;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.5);
@@ -337,3 +337,34 @@
 
 /* Vidéo en haut de page */
 .cs-hero__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Quinconce (stagger: true) ---------- */
+.cs-stagger {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 2rem;
+  row-gap: 12vh;
+  align-items: start;
+}
+.cs-stagger__item { all: unset; display: block; cursor: zoom-in; }
+.cs-stagger__item .media { border-radius: 10px; }
+.cs-stagger__item img { width: 100%; height: auto; display: block; }
+.cs-stagger__item--a { grid-column: 1 / span 7; }
+.cs-stagger__item--b { grid-column: 9 / span 4; margin-top: 20vh; }
+.cs-stagger__item--c { grid-column: 2 / span 4; }
+.cs-stagger__item--d { grid-column: 6 / span 7; margin-top: 20vh; }
+@media (max-width: 768px) {
+  .cs-stagger { display: flex; flex-direction: column; gap: 6vh; }
+  .cs-stagger__item--b, .cs-stagger__item--d { margin-top: 0; }
+}
+
+/* ---------- Brief avant la photo (introFirst) ---------- */
+.cs-intro--first { padding: 9vh var(--pad) 9vh; }
+.cs-intro__blocks--wide { grid-template-columns: 1fr; }
+.cs-intro__blocks--wide .cs-body { max-width: 50rem; }
+.cs-hero--media { padding-top: 0; }
+
+/* Chiffres animés : largeur fixe des chiffres pour que le texte ne bouge pas pendant le compteur */
+[data-count] { font-variant-numeric: tabular-nums; }
+/* Chiffres de la bande des highlights : blanc, gras, 2x plus gros que le texte */
+.cs-results__list [data-count] { color: #fff; font-weight: 600; font-size: 2em; line-height: 1.1; }

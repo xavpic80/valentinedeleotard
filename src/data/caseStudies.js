@@ -22,15 +22,13 @@ export const caseStudies = [
         tag: "The system",
         headline: "One system, every aisle.",
         body: "Sauces, spreads, snacks, drinks and dessert, nearly 4,000 SKUs that had to feel like one family. **Playful enough to stand alone, disciplined enough to read as Goodfood side by side.**",
-        // Galerie horizontale, texte à gauche, photos entières (images optimisées dans public/private-label/gallery)
-        gallery: true,
-        galleryText: true,
-        beforeHighlights: true, // section placée avant la bande des highlights
+        // Disposition en quinconce, comme Jonny et Food Photography (photos entières, optimisées dans public/private-label/gallery)
+        stagger: true,
         images: [
-          "/private-label/gallery/gum.jpg",
-          "/private-label/gallery/yogurt-lemon.jpg",
-          "/private-label/gallery/frozen-vanilla.jpg",
+          { src: "/private-label/gallery/gum.jpg", columns: "1 / span 6" }, // laisse la place à l'huile d'olive
+          { src: "/private-label/gallery/olive-oil.jpg", columns: "7 / span 6" }, // 50 % plus grande (6 colonnes au lieu de 4)
           "/private-label/gallery/frozen-fudge.jpg",
+          "/private-label/gallery/frozen-vanilla.jpg",
           "/private-label/gallery/cake-1.jpg",
           "/private-label/gallery/cake-2.jpg",
           "/private-label/gallery/matcha-latte.jpg",
@@ -40,11 +38,11 @@ export const caseStudies = [
           "/private-label/gallery/coconut-water.jpg",
           "/private-label/gallery/coffee.jpg",
           "/private-label/gallery/coffee-2.jpg",
-          "/private-label/gallery/salt.jpg",
-          "/private-label/gallery/salt-coarse.jpg",
-          "/private-label/gallery/salt-sea.jpg",
-          "/private-label/gallery/salt-table.jpg",
-          "/private-label/gallery/olive-oil.jpg",
+          // Les 3 sels sur la même rangée : gros sel et sel de table côte à côte, sel fin avec légende en grand
+          { src: "/private-label/gallery/salt-coarse.jpg", columns: "1 / span 3" },
+          { src: "/private-label/gallery/salt-table.jpg", columns: "4 / span 3" },
+          { src: "/private-label/gallery/salt.jpg", columns: "7 / span 6" },
+          "/private-label/gallery/yogurt-lemon.jpg",
           "/private-label/gallery/marshmallows.jpg",
         ],
       },
@@ -475,6 +473,42 @@ export const caseStudies = [
     credits: "Creative Direction & Concept: Valentine de Leotard · Character design: AI-assisted (Nano Banana)",
   },
   {
+    slug: "food-photography",
+    brand: "Food Photography",
+    title: "Food photo & art direction",
+    category: "Photo Art Direction",
+    year: "Goodfood",
+    tileImage: "/projects/foodphoto/fork-web.jpg", // carte de la home : la fourchette (copie optimisée de fork1.jpg)
+    brief:
+      "Our recipes were sold exclusively online, so customers had to taste them with their eyes first. **No appetite appeal, no sales.**\n\nI collaborated with talented food stylists and photographers to make our customers' mouths water: a winning recipe, with an average of 30 recipes shot every week, not counting editorial and advertising photography.\n\nStyling, lighting and composition were built for both editorial warmth and e-commerce clarity.",
+    introFirst: true, // le brief passe avant la photo, en lignes plus longues
+    role: ["Photo Art Direction", "Food Styling Direction", "Creative Direction"],
+    heroImage: "/projects/foodphoto/web/bbq.jpg", // photo BBQ en haut (copie web de BBQpsd.jpg)
+    heroAspect: "aspect-[1800/1007]", // ratio réel : rien n'est rogné
+    sections: [
+      {
+        tag: "Recipes",
+        stagger: true, // disposition en quinconce, comme Jonny (grandes images horizontales, petites verticales)
+        images: [
+          "/projects/foodphoto/web/thai-curry.jpg",
+          "/projects/foodphoto/web/gnocchi-vertical.jpg",
+          "/projects/foodphoto/web/alouette-burger.jpg",
+          "/projects/foodphoto/web/spiced-chicken.jpg",
+          "/projects/foodphoto/web/fork.jpg",
+          "/projects/foodphoto/web/turkey.jpg",
+          "/projects/foodphoto/web/lumache-pesto.jpg",
+          "/projects/foodphoto/web/gnocchi.jpg",
+          "/projects/foodphoto/web/thai-bbq-chicken.jpg",
+          "/projects/foodphoto/web/meatballs-vertical.jpg",
+          "/projects/foodphoto/web/classic-recipe.jpg",
+          "/projects/foodphoto/web/meatballs.jpg",
+        ],
+      },
+    ],
+    results: null,
+    credits: "Photo Art Direction: Valentine de Leotard, for Goodfood",
+  },
+  {
     slug: "jonny-italian-eatery",
     brand: "Jonny's Italian Eatery",
     title: "A delivery-only Italian sandwich shop",
@@ -490,48 +524,26 @@ export const caseStudies = [
     whatIDid:
       "**I created the brand identity, designed the packaging system, and led the photo art direction** end to end.",
     role: ["Brand Identity", "Packaging Design", "Photo Art Direction", "Creative Direction"],
-    heroImage: "/jonny-new/cover.jpg",
+    heroImage: "/kaleido2/09.jpg", // image du haut : caprese + logo, au ratio réel (aucun rognage)
+    heroAspect: "aspect-[1600/685]",
     sections: [
       {
         tag: "The identity",
         headline: "Authenticity, fast.",
         body: "Every decision, from logo to food styling, had to instantly read as authentic and irresistible: **delivery that actually feels like the better option.**",
-        images: ["/jonny-new/02-bag.jpg", "/jonny-new/03-cards.jpg"],
+        images: ["/jonny-new/02-bag.jpg", { src: "/jonny-new/03-cards.jpg", columns: "8 / span 5" }], // cartes un peu plus grandes
+        stagger: true, // disposition en quinconce
       },
       {
         tag: "The packaging",
         headline: "One system, every touchpoint.",
         body: "Packaging, stickers and photography all had to read as **one handcrafted world**, built fast, for a dark kitchen with no storefront to lean on.",
-        images: ["/jonny-new/04-jonny.gif", "/jonny-new/05-cup.jpg", "/jonny-new/06-sandwich.jpg", "/jonny-new/07-wraps.jpg"],
+        images: ["/jonny-new/05-cup.jpg", "/jonny-new/04-jonny.gif", "/jonny-new/07-wraps.jpg", "/jonny-new/06-sandwich.jpg"],
+        stagger: true, // disposition en quinconce
       },
     ],
     results: null,
     credits: "Brand Identity & Creative Direction: Valentine de Leotard, for Goodfood's On Demand division",
-  },
-  {
-    slug: "food-photography",
-    brand: "Food Photography",
-    title: "Food photo & art direction",
-    category: "Photo Art Direction",
-    year: "Goodfood",
-    tileImage: "/projects/foodphoto/fork-web.jpg", // carte de la home : la fourchette (copie optimisée de fork1.jpg)
-    brief:
-      "Selected recipe and product photography shot under my art direction, **styling, lighting and composition built for both editorial warmth and e-commerce clarity.**",
-    role: ["Photo Art Direction", "Food Styling Direction", "Creative Direction"],
-    heroImage: "/projects/foodphoto/HolidayDinner.jpg",
-    sections: [
-      {
-        tag: "Recipes",
-        images: [
-          "/projects/foodphoto/gnocchi.jpg",
-          "/projects/foodphoto/thai-curry.jpg",
-          "/projects/foodphoto/thai-bbq-chicken.jpg",
-          "/projects/foodphoto/spiced-chicken.jpg",
-        ],
-      },
-    ],
-    results: null,
-    credits: "Photo Art Direction: Valentine de Leotard, for Goodfood",
   },
   {
     slug: "jus-laitues",

@@ -63,7 +63,19 @@ function sectionMedia(s) {
       .map((col) => `<div class="cs-columns__col">${col.map((m) => mediaItem(m)).join("")}</div>`)
       .join("")}</div>`;
   }
-  if (s.images && s.gallery) {
+  if (s.images && s.stagger) {
+    // Disposition en quinconce (comme la grille du premier rendu de la home) : grande, petite décalée, petite, grande décalée
+    html += `<div class="cs-stagger">${s.images
+      .map((item, n) => {
+        // Une image peut être un objet { src, columns } pour changer sa place/taille dans la grille de 12 colonnes
+        const src = typeof item === "string" ? item : item.src;
+        const style = typeof item === "object" && item.columns ? ` style="grid-column:${item.columns}"` : "";
+        return `<button type="button" class="cs-stagger__item cs-stagger__item--${"abcd"[n % 4]}"${style} data-zoom data-cursor="Zoom">
+          <div class="media"><img src="${src}" alt="${cs.brand}" loading="lazy" /></div>
+        </button>`;
+      })
+      .join("")}</div>`;
+  } else if (s.images && s.gallery) {
     // Galerie horizontale épinglée (même mécanique que Selected work) ; chaque carte s'ouvre en grand au clic
     // galleryText : le texte ouvre la bande à gauche, et les photos gardent leur format (pas de rognage)
     const natural = !!s.galleryText;
@@ -162,8 +174,9 @@ function renderIntro() {
     ["The idea", cs.idea],
     ["What I did", cs.whatIDid],
   ].filter(([, t]) => t);
-  return `<section class="cs-intro">
-    <div class="cs-intro__blocks">
+  // introFirst : brief placé avant la photo, en une colonne large (lignes plus longues)
+  return `<section class="cs-intro${cs.introFirst ? " cs-intro--first" : ""}">
+    <div class="cs-intro__blocks${cs.introFirst ? " cs-intro__blocks--wide" : ""}">
       ${blocks.map(([label, t]) => `<div class="cs-intro__block"><p class="section-label">${label}</p><div class="cs-body">${rich(t)}</div></div>`).join("")}
     </div>
     <aside class="cs-intro__aside">
@@ -194,7 +207,7 @@ function renderHighlights() {
       <p class="section-label">${r.label || "Highlights"}</p>
       ${r.stat ? `<div class="cs-results__stat"><p class="cs-stat"><span data-count>${r.stat}</span></p><p class="cs-stat__label">${r.statLabel || ""}</p></div>` : ""}
       ${r.description ? `<p class="cs-results__desc">${inline(r.description)}</p>` : ""}
-      ${r.items ? `<ul class="cs-results__list">${r.items.map((it, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${inline(it)}</p></li>`).join("")}</ul>` : ""}
+      ${r.items ? `<ul class="cs-results__list">${r.items.map((it, i) => `<li><span>${String(i + 1).padStart(2, "0")}</span><p>${inline(it.replace(/\d[\d,]*\+?/, (n) => `<span data-count>${n}</span>`))}</p></li>`).join("")}</ul>` : ""}
     </div>
     ${r.image ? `<div class="cs-results__img media"><img src="${r.image}" alt="" loading="lazy" /></div>` : ""}
   </section>`;
@@ -228,9 +241,9 @@ function render() {
       <a href="/#work" class="cs-back magnetic" data-transition>← All work</a>
       <p class="cs-hero__eyebrow"><span>${cs.brand}</span><span>${cs.category} — ${cs.year}</span></p>
       <h1 class="cs-hero__title">${cs.title}</h1>
-      ${renderHero()}
+      ${cs.introFirst ? "" : renderHero()}
     </section>
-    ${renderIntro()}
+    ${cs.introFirst ? `${renderIntro()}<section class="cs-hero cs-hero--media">${renderHero()}</section>` : renderIntro()}
     ${(cs.sections || []).map((sec, i) => (sec.beforeHighlights ? renderSection(sec, i) : "")).join("")}
     ${renderHighlights()}
     ${(cs.sections || []).map((sec, i) => (sec.beforeHighlights ? "" : renderSection(sec, i))).join("")}
@@ -445,16 +458,21 @@ function scrollAnimations() {
     gsap.from(li, { y: 30, opacity: 0, duration: 1, delay: i * 0.08, ease: EASE_OUT, scrollTrigger: { trigger: li, start: "top 92%" } });
   });
 
-  // Compteur pour les chiffres clés (ex. 650K+)
+  // Compteur pour les chiffres clés (ex. 650K+, et les chiffres de la bande des highlights)
   document.querySelectorAll("[data-count]").forEach((el) => {
     const m = el.textContent.match(/^([^\d]*)([\d.,]+)(.*)$/);
     if (!m) return;
     const target = parseFloat(m[2].replace(/,/g, ""));
+    // Réserve la largeur finale : le reste de la phrase ne bouge pas pendant le compteur
+    el.style.display = "inline-block";
+    el.style.minWidth = el.getBoundingClientRect().width + "px";
+    el.style.textAlign = "right";
     const o = { v: 0 };
     gsap.to(o, {
       v: target, duration: 2, ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 85%" },
-      onUpdate: () => (el.textContent = m[1] + Math.round(o.v) + m[3]),
+      // Garde le séparateur de milliers si le chiffre d'origine en a un (ex. 4,000)
+      onUpdate: () => (el.textContent = m[1] + (m[2].includes(",") ? Math.round(o.v).toLocaleString("en-US") : Math.round(o.v)) + m[3]),
     });
   });
 
